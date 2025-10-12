@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import About from "./pages/about";
 import AdminPage from "./pages/admin-page";
 import SignInPage from "./pages/sign-in-page";
-import UserNotification from "./components/notifs/UserNotificationProvider";
 
 const App = () => {
   return (
