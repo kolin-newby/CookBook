@@ -1,57 +1,64 @@
-import React, { useEffect, useState } from "react";
-import { QueryRecipes } from "../components/recipes/hooks";
+import React, { useState, useCallback, useEffect } from "react";
+import RecipeDetailsModal from "../components/recipes/recipe-details-modal";
+import { QueryRecipes } from "../components/hooks";
+import RecipesList from "../components/recipes/recipes-list";
 
 const Recipes = () => {
-  const [search, setSearch] = useState("");
+  const [displayRecipe, setDisplayRecipe] = useState(null);
+  const [changedHash, setChangedHash] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const fetchRecipes = () => {
+  const fetchRecipes = useCallback(() => {
     QueryRecipes().then((resp) => {
       if (resp.error) console.error(resp.error);
       else setRecipes(resp.data);
     });
-  };
+  }, []);
+
+  const updateDisplayRecipe = useCallback(() => {
+    const tmp = recipes.filter(
+      (recipe) => `#${recipe?.id}` === window.location.hash
+    );
+    if (tmp.length === 1) {
+      setDisplayRecipe(tmp[0]);
+    } else if (tmp.length === 0) {
+      setDisplayRecipe(null);
+    } else
+      console.error(
+        "updateDisplayRecipe-error: expected filtered array to contain 1 item but it contains more than 1..."
+      );
+
+    setChangedHash(false);
+  }, [recipes, setDisplayRecipe, setChangedHash]);
 
   useEffect(() => {
     fetchRecipes();
-  }, []);
+  }, [fetchRecipes]);
+
+  useEffect(() => {
+    if (changedHash) {
+      updateDisplayRecipe();
+    } else return;
+  }, [updateDisplayRecipe, changedHash]);
 
   return (
-    <div className="w-2/3 h-full space-y-4">
-      <ul className="flex flex-col space-y-4 w-max text-yellow-950">
-        <li className="flex p-1 rounded-full bg-yellow-950/10 inset-shadow-sm w-full">
-          <input
-            className="flex rounded-full text-lg py-2 px-6 w-full"
-            type="text"
-            placeholder="search recipes..."
-            value={search}
-            onChange={(e) => setSearch(e?.target?.value)}
-          />
-        </li>
-        {recipes.map(
-          (recipe, index) =>
-            search !== "<empty string>" &&
-            (recipe?.title?.includes(search) ||
-              search.includes(recipe?.title)) && (
-              <li
-                key={`recipe-item-${index}-${recipe.title}`}
-                className="flex flex-row rounded-full inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
-              >
-                <div className="flex flex-row rounded-full items-center justify-center py-3 pl-12 pr-3 space-x-6">
-                  <div className="flex flex-col space-y-2">
-                    <h2 className="flex text-3xl">{recipe?.title}</h2>
-                    <div className="flex bg-yellow-950 rounded-full w-full h-0.5" />
-                    <h3 className="flex">{recipe?.description}</h3>
-                  </div>
-                  <img
-                    className="flex rounded-full w-[200px]"
-                    src="/photos/placeholder.jpg"
-                  />
-                </div>
-              </li>
-            )
-        )}
-      </ul>
+    <div
+      id="details"
+      className={`h-full w-full relative transform transition-transform duration-700 ${
+        !modalOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      <RecipesList
+        setModalOpen={setModalOpen}
+        setDisplayRecipe={setDisplayRecipe}
+        recipes={recipes}
+      />
+      <RecipeDetailsModal
+        setOpen={setModalOpen}
+        recipe={displayRecipe}
+        setRecipe={setDisplayRecipe}
+      />
     </div>
   );
 };
