@@ -3,8 +3,9 @@ import PlaceHolderImage from "../place-holder-image";
 import MutationBar from "./mutation-bar";
 import RecipeModal from "../recipe-modal";
 import { useAuth } from "../auth/AuthContext";
+import Loading from "../Loading";
 
-const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes }) => {
+const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
   const [search, setSearch] = useState("");
 
   const { user } = useAuth();
@@ -23,11 +24,13 @@ const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes }) => {
             onChange={(e) => setSearch(e?.target?.value)}
           />
         </li>
-        {recipes.filter(
-          (recipe) =>
-            recipe?.title?.toLowerCase().includes(search.toLowerCase()) ||
-            search.toLowerCase().includes(recipe?.title?.toLowerCase())
-        ).length > 0 ? (
+        {loading ? (
+          <Loading />
+        ) : recipes.filter(
+            (recipe) =>
+              recipe?.title?.toLowerCase().includes(search.toLowerCase()) ||
+              search.toLowerCase().includes(recipe?.title?.toLowerCase())
+          ).length > 0 ? (
           recipes
             .filter(
               (recipe) =>

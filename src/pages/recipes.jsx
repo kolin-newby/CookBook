@@ -9,11 +9,18 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [loadingList, setLoadingList] = useState(false);
+
   const fetchRecipes = useCallback(() => {
-    QueryRecipes().then((resp) => {
-      if (resp.error) console.error(resp.error);
-      else setRecipes(resp.data);
-    });
+    setLoadingList(true);
+    QueryRecipes()
+      .then((resp) => {
+        if (resp.error) console.error(resp.error);
+        else setRecipes(resp.data);
+      })
+      .finally(() => {
+        setLoadingList(false);
+      });
   }, []);
 
   const updateDisplayRecipe = useCallback(() => {
@@ -53,6 +60,7 @@ const Recipes = () => {
         setModalOpen={setModalOpen}
         setDisplayRecipe={setDisplayRecipe}
         recipes={recipes}
+        loading={loadingList}
       />
       <RecipeDetailsModal
         setOpen={setModalOpen}

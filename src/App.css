@@ -63,6 +63,11 @@
   --spacing-app-mobile-5/6: calc((100% - var(--nav-mobile-height)) * (5 / 6));
 
   --animate-spin-slow: spin 2500ms linear infinite;
+
+  --animate-spin-1: spin 500ms linear infinite;
+  --animate-spin-2: spin 600ms linear infinite;
+  --animate-spin-3: spin 700ms linear infinite;
+  --animate-spin-4: spin 800ms linear infinite;
 }
 
 * {
