@@ -3,8 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AuthCtx } from "./AuthContext";
 import { SBClient } from "../supabaseClient";
 
-// Comma-separated list of admin user IDs in your .env.local
-// VITE_ADMIN_USER_IDS="uuid1,uuid2"
 const ADMIN_IDS = (import.meta.env.VITE_ADMIN_USER_IDS ?? "")
   .split(",")
   .map((s) => s.trim())
