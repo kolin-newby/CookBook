@@ -3,7 +3,7 @@ import { useAuth } from "./../components/auth/AuthContext";
 import RecipeModal from "../components/recipe-modal";
 
 const AdminPage = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isAdmin } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
   const handleSignOut = () => {
@@ -25,13 +25,17 @@ const AdminPage = () => {
         </button>
       </div>
       <div className="flex w-full h-1 bg-theme-4" />
-      <button
-        onClick={() => setShowModal(!showModal)}
-        className="text-2xl flex bg-theme-3 text-theme-1 rounded-full py-2 px-10 shadow transform transition-all duration-300 hover:shadow-xl hover:scale-[103%] cursor-pointer"
-      >
-        <h2>Add Recipe</h2>
-      </button>
-      <RecipeModal show={showModal} setShow={setShowModal} />
+      {isAdmin && (
+        <>
+          <button
+            onClick={() => setShowModal(!showModal)}
+            className="text-2xl flex bg-theme-3 text-theme-1 rounded-full py-2 px-10 shadow transform transition-all duration-300 hover:shadow-xl hover:scale-[103%] cursor-pointer"
+          >
+            <h2>Add Recipe</h2>
+          </button>
+          <RecipeModal show={showModal} setShow={setShowModal} />
+        </>
+      )}
     </div>
   );
 };

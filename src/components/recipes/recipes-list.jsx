@@ -8,7 +8,7 @@ import Loading from "../Loading";
 const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
   const [search, setSearch] = useState("");
 
-  const { user } = useAuth();
+  const { isAdmin } = useAuth();
 
   return (
     <div
@@ -60,7 +60,7 @@ const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
                         <PlaceHolderImage className="w-[200px]" />
                       </div>
                     </div>
-                    {user && <MutationBar recipe={recipe} />}
+                    {isAdmin && <MutationBar recipe={recipe} />}
                   </li>
                 )
             )

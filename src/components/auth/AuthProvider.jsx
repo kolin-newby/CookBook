@@ -3,26 +3,42 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AuthCtx } from "./AuthContext";
 import { SBClient } from "../supabaseClient";
 
+// Comma-separated list of admin user IDs in your .env.local
+// VITE_ADMIN_USER_IDS="uuid1,uuid2"
+const ADMIN_IDS = (import.meta.env.VITE_ADMIN_USER_IDS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+const computeUser = (supabaseUser) => {
+  if (!supabaseUser) return null;
+
+  const role = supabaseUser.app_metadata?.role;
+  const isAdminFromRole = role === "admin";
+  const isAdminFromList = ADMIN_IDS.includes(supabaseUser.id);
+
+  const isAdmin = isAdminFromRole || isAdminFromList;
+
+  return {
+    id: supabaseUser.id,
+    email: supabaseUser.email,
+    role,
+    isAdmin,
+  };
+};
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {
     SBClient.auth.getSession().then(({ data: { session } }) => {
-      setUser(
-        session?.user
-          ? { id: session.user.id, email: session.user.email }
-          : null
-      );
+      setUser(computeUser(session?.user ?? null));
       setReady(true);
     });
 
     const { data: sub } = SBClient.auth.onAuthStateChange((_event, session) => {
-      setUser(
-        session?.user
-          ? { id: session.user.id, email: session.user.email }
-          : null
-      );
+      setUser(computeUser(session?.user ?? null));
     });
 
     return () => sub.subscription.unsubscribe();
@@ -40,7 +56,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const value = useMemo(
-    () => ({ user, isReady, signInWithEmail, signOut }),
+    () => ({
+      user,
+      isReady,
+      isAdmin: user?.isAdmin ?? false,
+      signInWithEmail,
+      signOut,
+    }),
     [user, isReady]
   );
 

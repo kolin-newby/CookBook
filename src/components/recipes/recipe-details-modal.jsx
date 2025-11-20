@@ -32,7 +32,8 @@ const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
           </div>
           <div className="flex w-full h-1.5 bg-yellow-950 rounded-full" />
           <div className="flex flex-col overflow-y-auto h-full">
-            <div className="flex flex-row items-start justify-evenly py-20">
+            <div className="flex flex-row items-start justify-evenly py-10">
+              <PlaceHolderImage className="w-[400px]" />
               <div className="flex flex-col space-y-4">
                 <h2 className="text-3xl">Ingredients</h2>
                 <ul className="flex flex-col list-disc list-inside">
@@ -57,7 +58,6 @@ const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
                     ))}
                 </ul>
               </div>
-              <PlaceHolderImage className="w-[400px]" />
             </div>
             <div className="flex w-full h-1.5 bg-yellow-950 rounded-full" />
             <div className="flex flex-row items-start justify-evenly py-10">

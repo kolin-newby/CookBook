@@ -9,7 +9,7 @@ export const RequireAuth = () => {
   if (!isReady) return <div>Loading...</div>;
   if (!user) {
     // redirect ONLY from protected routes
-    return <Navigate to="/sign_in" replace state={{ from: location }} />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
   return <Outlet />;

@@ -8,7 +8,7 @@ import { RequireAuth } from "./components/auth/RequireAuth";
 import { BrowserRouter, Routes, Route } from "react-router";
 import About from "./pages/about";
 import AdminPage from "./pages/admin-page";
-import SignInPage from "./pages/sign-in-page";
+import LoginPage from "./pages/login-page";
 
 const App = () => {
   return (
@@ -18,12 +18,12 @@ const App = () => {
           <Navbar />
           <div className="flex w-full h-app-full">
             <Routes>
-              <Route path="/" element={<About />} />
-              <Route path="/recipes" element={<Recipes />} />
               <Route element={<RequireAuth />}>
+                <Route path="/" element={<About />} />
+                <Route path="/recipes" element={<Recipes />} />
                 <Route path="/admin" element={<AdminPage />} />
               </Route>
-              <Route path="sign_in" element={<SignInPage />} />
+              <Route path="login" element={<LoginPage />} />
             </Routes>
           </div>
         </AuthProvider>
