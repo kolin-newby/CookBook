@@ -1,7 +1,10 @@
-import React from "react";
+import { Compass } from "lucide-react";
+import React, { useState } from "react";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
   const navLinks = [
     {
       title: "Home",
@@ -16,21 +19,45 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="sticky top-0 inset-x-0 h-nav w-full flex space-x-12 text-yellow-950 bg-gradient-to-r from-theme-4 to-theme-3 shadow-lg px-3 py-5">
-      <div className="flex flex-row bg-theme-1 rounded-full h-full px-8 space-x-2 inset-shadow-sm items-center">
-        <div className="flex flex-col">
-          <h2 className="flex justify-end">get</h2>
-          <h2 className="flex justify-end">in</h2>
-          <h2 className="flex justify-end">the</h2>
-        </div>
-        <div className="flex flex-col">
-          <h1 className="flex w-full text-3xl">MOTHER FKN</h1>
-          <h1 className="flex w-full text-3xl justify-start">KITCHEN</h1>
+    <div className="sticky z-10 top-0 inset-x-0 h-nav w-full flex space-x-4 md:space-x-12 text-yellow-950 px-0 py-5">
+      <div className="absolute -z-10 inset-0 w-full h-full bg-linear-to-r from-theme-4 to-theme-3 shadow-lg" />
+      <div className="flex flex-row bg-theme-1 rounded-full w-full md:w-auto h-full px-6 md:px-8 inset-shadow-sm items-center space-x-4">
+        <button>
+          <Compass
+            className="flex md:hidden animate-compass-spin"
+            size={"30px"}
+          />
+        </button>
+        <div className="flex flex-col md:flex-row md:space-x-2 w-full items-start">
+          <div className="flex flex-row space-x-1 md:space-x-0 md:flex-col">
+            <h2 className="flex justify-end">get</h2>
+            <h2 className="flex justify-end">in</h2>
+            <h2 className="flex justify-end">the</h2>
+          </div>
+          <div className="flex md:flex-col text-xl md:text-3xl space-x-1.5 md:space-x-0">
+            <h1 className="flex md:w-full">MOTHER FKN</h1>
+            <h1 className="flex md:w-full justify-start">KITCHEN</h1>
+          </div>
         </div>
       </div>
-      <nav className="flex bg-theme-1 rounded-full h-full w-1/2 justify-evenly inset-shadow-sm items-center px-8 space-x-10">
+      <nav className="hidden md:flex bg-theme-1 rounded-full h-full w-1/2 justify-evenly inset-shadow-sm items-center px-8 space-x-10">
         {navLinks.map((item, index) => (
           <NavLink key={`nav-item-${index}`} to={item.path}>
+            <h2 className="text-lg">{item.title.toUpperCase()}</h2>
+          </NavLink>
+        ))}
+      </nav>
+      <nav
+        className={`flex flex-col absolute top-full inset-x-0 -z-20 md:hidden bg-theme-2 rounded-b-full space-y-2 items-center shadow transition-transform duration-300 transform ${
+          open ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        {navLinks.map((item, index) => (
+          <NavLink
+            key={`nav-item-${index}`}
+            to={item.path}
+            className={"flex py-3"}
+          >
             <h2 className="text-lg">{item.title.toUpperCase()}</h2>
           </NavLink>
         ))}

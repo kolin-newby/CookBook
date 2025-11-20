@@ -64,6 +64,8 @@
 
   --animate-spin-slow: spin 2500ms linear infinite;
 
+  --animate-compass-spin: spin 2500ms infinite;
+
   --animate-spin-1: spin 500ms linear infinite;
   --animate-spin-2: spin 600ms linear infinite;
   --animate-spin-3: spin 700ms linear infinite;
@@ -80,4 +82,25 @@ h2 {
   font-family: "Bagel Fat One", system-ui;
   font-weight: 400;
   font-style: normal;
+}
+
+.animate-compass-spin {
+  animation: compass-spin 2.5s ease-out forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes compass-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* Slow partial-circle spin */
+  60% {
+    transform: rotate(120deg);
+  }
+
+  /* Fast spin back past original position */
+  100% {
+    transform: rotate(0deg);
+  }
 }
