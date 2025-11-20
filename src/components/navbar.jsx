@@ -14,6 +14,11 @@ const Navbar = ({ open, setOpen }) => {
       path: "/recipes",
       icon: <span></span>,
     },
+    {
+      title: "Account",
+      path: "/account",
+      icon: <span></span>,
+    },
   ];
 
   return (

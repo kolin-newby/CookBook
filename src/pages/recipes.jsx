@@ -1,7 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import RecipeDetailsModal from "../components/recipes/recipe-details-modal";
 import { QueryRecipes } from "../components/hooks";
 import RecipesList from "../components/recipes/recipes-list";
+import { useAuth } from "../components/auth/AuthContext";
 
 const Recipes = () => {
   const [displayRecipe, setDisplayRecipe] = useState(null);
@@ -10,6 +13,9 @@ const Recipes = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const [loadingList, setLoadingList] = useState(false);
+
+  const { isAdmin } = useAuth();
+  const { mode } = useParams();
 
   const fetchRecipes = useCallback(() => {
     setLoadingList(true);
@@ -52,11 +58,12 @@ const Recipes = () => {
   return (
     <div
       id="details"
-      className={`h-full w-full relative transform transition-transform duration-700 ${
+      className={`flex flex-col h-full w-full relative transform transition-transform duration-700 ${
         !modalOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <RecipesList
+        showManageView={isAdmin && mode === "edit"}
         setModalOpen={setModalOpen}
         setDisplayRecipe={setDisplayRecipe}
         recipes={recipes}

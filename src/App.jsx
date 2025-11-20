@@ -7,7 +7,7 @@ import { RequireAuth } from "./components/auth/RequireAuth";
 
 import { BrowserRouter, Routes, Route } from "react-router";
 import About from "./pages/about";
-import AdminPage from "./pages/admin-page";
+import AccountPage from "./pages/account-page";
 import LoginPage from "./pages/login-page";
 
 const App = () => {
@@ -27,8 +27,9 @@ const App = () => {
             <Routes>
               <Route element={<RequireAuth />}>
                 <Route path="/" element={<About />} />
+                <Route path="/recipes/:mode" element={<Recipes />} />
                 <Route path="/recipes" element={<Recipes />} />
-                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/account" element={<AccountPage />} />
               </Route>
               <Route path="login" element={<LoginPage />} />
             </Routes>

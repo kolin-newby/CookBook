@@ -2,19 +2,35 @@ import React, { useState } from "react";
 import PlaceHolderImage from "../place-holder-image";
 import MutationBar from "./mutation-bar";
 import RecipeModal from "../recipe-modal";
-import { useAuth } from "../auth/AuthContext";
 import Loading from "../Loading";
+import { NavLink } from "react-router";
+import { X } from "lucide-react";
 
-const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
+const RecipesList = ({
+  setModalOpen,
+  setDisplayRecipe,
+  recipes,
+  loading,
+  showManageView,
+}) => {
   const [search, setSearch] = useState("");
-
-  const { isAdmin } = useAuth();
 
   return (
     <div
       className={`inset-0 flex absolute w-full h-full items-start justify-center p-8`}
     >
       <ul className="flex flex-col space-y-4 w-max text-yellow-950">
+        {showManageView && (
+          <li>
+            <NavLink
+              to={"/recipes"}
+              className="flex w-full text-xl space-x-2 text-theme-1 rounded-full bg-theme-3 py-6 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"
+            >
+              <X />
+              <h2>Exit Edit Mode</h2>
+            </NavLink>
+          </li>
+        )}
         <li className="flex p-1 rounded-full bg-yellow-950/10 inset-shadow-sm w-full">
           <input
             className="flex rounded-full text-lg py-2 px-6 w-full"
@@ -42,7 +58,7 @@ const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
                 search !== "<empty string>" && (
                   <li
                     key={`recipe-item-${index}-${recipe.title}`}
-                    className="flex flex-col"
+                    className="flex relative flex-col"
                   >
                     <div
                       className="flex flex-row rounded-full inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
@@ -60,7 +76,7 @@ const RecipesList = ({ setModalOpen, setDisplayRecipe, recipes, loading }) => {
                         <PlaceHolderImage className="w-[200px]" />
                       </div>
                     </div>
-                    {isAdmin && <MutationBar recipe={recipe} />}
+                    {showManageView && <MutationBar recipe={recipe} />}
                   </li>
                 )
             )

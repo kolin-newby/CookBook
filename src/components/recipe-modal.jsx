@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Plus, Trash, X } from "lucide-react";
+import { Check, Plus, Trash, X } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { AddRecipe, UpdateRecipe } from "./hooks";
 
@@ -38,13 +38,13 @@ const IngredientInput = ({ ingredients, setIngredients }) => {
             className="flex flex-row space-x-4 pr-6"
           >
             <input
-              className="flex rounded-full w-5/6 transition-colors bg-theme-2 px-8 py-2"
+              className="flex rounded-full w-5/6 transition-colors bg-theme-2 px-8 py-3"
               placeholder="ingedient"
               value={ingredient.name}
               onChange={(e) => updateItemName(e.target.value, index)}
             />
             <input
-              className="flex rounded-full w-1/5 transition-colors bg-theme-2 px-8 py-2"
+              className="flex rounded-full w-1/5 transition-colors bg-theme-2 px-8 py-3"
               placeholder="qty"
               value={ingredient.qty}
               onChange={(e) => updateItemQty(e.target.value, index)}
@@ -56,7 +56,7 @@ const IngredientInput = ({ ingredients, setIngredients }) => {
                   setIngredients([{ name: "", qty: "" }]);
                 else setIngredients(tmpArray);
               }}
-              className="flex items-center justify-center rounded-full py-2 px-4 cursor-pointer transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1"
+              className="flex items-center justify-center rounded-full py-3 px-4 cursor-pointer transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1"
             >
               <Trash />
             </button>
@@ -64,7 +64,7 @@ const IngredientInput = ({ ingredients, setIngredients }) => {
         ))}
       </div>
       <button
-        className="flex rounded-full bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-2"
+        className="flex rounded-full bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
         onClick={() =>
           setIngredients([
             ...ingredients,
@@ -101,7 +101,7 @@ const DirectionsInput = ({ steps, setSteps }) => {
               {index + 1}.
             </span>
             <input
-              className="flex rounded-full w-full bg-theme-2 transition-colors px-8 py-2"
+              className="flex rounded-full w-full bg-theme-2 transition-colors px-8 py-3"
               placeholder="direction"
               value={step}
               onChange={(e) => updateItemName(e.target.value, index)}
@@ -112,7 +112,7 @@ const DirectionsInput = ({ steps, setSteps }) => {
                 if (steps.length === 1) setSteps([""]);
                 else setSteps(tmpArray);
               }}
-              className="flex items-center justify-center rounded-full py-2 px-4 cursor-pointer transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1"
+              className="flex items-center justify-center rounded-full py-3 px-4 cursor-pointer transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1"
             >
               <Trash />
             </button>
@@ -120,7 +120,7 @@ const DirectionsInput = ({ steps, setSteps }) => {
         ))}
       </ol>
       <button
-        className="flex rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-2"
+        className="flex rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
         onClick={() => setSteps([...steps, ""])}
       >
         <Plus />
@@ -139,7 +139,6 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
 
   const [unifiedPrepTime, setUnifiedPrepTime] = useState(0);
   const [prepTimeMin, setPrepTimeMin] = useState(0);
-  const [prepTimeHr, setPrepTimeHr] = useState(0);
 
   const handleSubmit = () => {
     if (editRecipe === null) {
@@ -179,25 +178,15 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
   const handleTimeInput = (e) => {
     const input = Number(e.target.value);
 
-    if (e.target.id === "prep_time_hrs") {
-      setUnifiedPrepTime(input * 60 + prepTimeMin);
-      setPrepTimeHr(input);
-
-      return;
-    } else {
-      setUnifiedPrepTime(prepTimeHr * 60 + input);
-      setPrepTimeMin(input);
-
-      return;
-    }
+    setUnifiedPrepTime(input);
+    setPrepTimeMin(input);
   };
 
   const setInitialValues = useCallback(() => {
     setTitle(editRecipe.title);
     setDescription(editRecipe.description);
     setNote(editRecipe.notes);
-    setPrepTimeMin(editRecipe.prep_time_mins % 60);
-    setPrepTimeHr(Math.floor(editRecipe.prep_time_mins / 60));
+    setPrepTimeMin(editRecipe.prep_time_mins);
     setUnifiedPrepTime(editRecipe.prep_time_mins);
     setSteps(editRecipe.directions.steps);
     setIngredients(editRecipe.ingredients);
@@ -213,63 +202,49 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
     <div
       className={`absolute inset-0 z-10 transition-transform transform duration-500 ${
         show ? "translae-x-0" : "translate-x-full"
-      } flex flex-col w-full p-10 space-y-4 text-theme-4 bg-theme-1`}
+      } flex flex-col w-full items-center justify-center px-6 py-4 space-y-4 text-theme-4 bg-theme-1`}
     >
-      <div className="flex flex-col w-full space-y-4">
+      <div className="flex flex-col max-w-[800px] w-full space-y-4">
         <div className="flex flex-row items-center space-x-4">
           <button
             onClick={handleClose}
-            className="flex rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-2 px-6 cursor-pointer space-x-1"
+            className="flex items-center justify-center rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer space-x-1"
           >
-            <ArrowLeft />
-            <span>Cancel</span>
+            <X />
+            <h2 className="text-xl">Cancel</h2>
           </button>
-          <span className="flex text-xl">
-            Add a New Recipe to the Mother FKN Kitchen
-          </span>
+          <h2 className="flex text-xl">
+            {editRecipe === null ? "Create New Recipe" : "Edit Recipe"}
+          </h2>
         </div>
-        <div className="flex flex-row space-x-4">
+        <div className="flex">
           <input
-            className="flex rounded-full w-full transition-colors bg-theme-2 px-8 py-2"
+            className="flex rounded-full w-full transition-colors bg-theme-2 px-8 py-3"
             placeholder="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <label className="flex flex-row items-center justify-center space-x-1">
-            <span className="flex text-xl">Prep Time</span>
-            <input
-              className="flex rounded-full transition-colors bg-theme-2 px-8 py-2"
-              type="number"
-              min={0}
-              max={10}
-              placeholder="0"
-              value={prepTimeHr}
-              onChange={handleTimeInput}
-              id="prep_time_hrs"
-            />
-            <span className="flex text-xl">hrs</span>
-            <span className="flex h-full text-3xl">:</span>
-            <input
-              className="flex rounded-full transition-colors bg-theme-2 px-8 py-2"
-              type="number"
-              min={0}
-              max={59}
-              placeholder="0"
-              value={prepTimeMin}
-              onChange={handleTimeInput}
-              id="prep_time_mins"
-            />
-            <span className="flex text-xl">mins</span>
-          </label>
+        </div>
+        <div className="flex items-center justify-center space-x-1">
+          <input
+            className="flex rounded-full transition-colors bg-theme-2 px-8 py-3"
+            type="number"
+            min={0}
+            placeholder="0"
+            value={prepTimeMin}
+            onChange={handleTimeInput}
+            id="prep_time_mins"
+          />
+          <span className="flex text-xl">min(s)</span>
         </div>
         <input
-          className="flex rounded-full transition-colors bg-theme-2 px-8 py-2"
+          className="flex rounded-full transition-colors bg-theme-2 px-8 py-3"
           placeholder="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <textarea
-          className="flex rounded-[48px] h-36 transition-colors bg-theme-2 px-8 py-2"
+          className="flex rounded-[48px] h-36 transition-colors bg-theme-2 px-8 py-3"
           placeholder="notes"
           value={note}
           onChange={(e) => setNote(e.target.value)}
@@ -283,10 +258,10 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
       <div className="flex flex-row justify-end">
         <button
           onClick={handleSubmit}
-          className="flex rounded-full space-x-1 transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-2 px-6 cursor-pointer"
+          className="flex items-center justify-center rounded-full w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
         >
-          <span>Submit</span>
           <Check />
+          <h2>Submit</h2>
         </button>
       </div>
     </div>
