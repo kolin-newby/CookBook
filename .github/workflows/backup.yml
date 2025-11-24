@@ -40,7 +40,7 @@ jobs:
       - name: Write Google tokens.json
         run: |
           mkdir -p backup
-          echo "${{ secrets.GOOGLE_TOKENS_JSON }}" > backup/tokens.json
+          echo "${{ secrets.GOOGLE_TOKENS_JSON }}" > database-backup/tokens.json
 
       - name: Run backup
         run: |

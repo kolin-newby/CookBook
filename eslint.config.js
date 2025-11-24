@@ -27,7 +27,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["backup/**/*.js"],
+    files: ["database-backup/**/*.js"],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 2020,

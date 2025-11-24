@@ -8,9 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "backup": "node backup/backup-recipes.js",
-    "restore": "node backup/restore-recipes.js",
-    "drive:auth": "node backup/auth-google.js"
+    "backup": "node database-backup/backup-recipes.js",
+    "restore": "node database-backup/restore-recipes.js",
+    "drive:auth": "node database-backup/auth-google.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
