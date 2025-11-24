@@ -3,9 +3,8 @@ import { Edit, Trash } from "lucide-react";
 import { DeleteRecipe } from "../hooks";
 import RecipeModal from "../recipe-modal";
 
-const MutationBar = ({ recipe }) => {
+const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = () => {
     if (!confirmDelete) {
@@ -19,16 +18,12 @@ const MutationBar = ({ recipe }) => {
   };
 
   const handleEdit = () => {
-    setShowModal(!showModal);
+    setRecipe(recipe);
+    setShowModal(true);
   };
 
   return (
     <div className="flex flex-row items-center justify-center pt-2">
-      <RecipeModal
-        show={showModal}
-        setShow={setShowModal}
-        editRecipe={recipe}
-      />
       <button
         onClick={handleEdit}
         className="flex flex-row items-center space-x-1 text-xl bg-theme-3 rounded-l-full px-10 py-2 text-theme-1 cursor-pointer transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"

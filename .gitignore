@@ -418,5 +418,9 @@ FodyWeavers.xsd
 *.msp
 
 .env.local
+.env
 /dist/*
 yarn.lock
+
+oauth-client.json
+tokens.json

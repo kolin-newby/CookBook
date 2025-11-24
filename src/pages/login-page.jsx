@@ -17,7 +17,7 @@ const LoginPage = () => {
       if (data?.error) setLoginError(data?.error);
       else {
         setLoginError(null);
-        navigate("/admin");
+        navigate("/account");
       }
     });
   };

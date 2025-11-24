@@ -15,10 +15,20 @@ const RecipesList = ({
 }) => {
   const [search, setSearch] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
+  const [editRecipe, setEditRecipe] = useState(null);
+
   return (
     <div
       className={`inset-0 flex absolute w-full h-full items-start justify-center p-8`}
     >
+      {editRecipe && showModal && (
+        <RecipeModal
+          show={showModal}
+          setShow={setShowModal}
+          editRecipe={editRecipe}
+        />
+      )}
       <ul className="flex flex-col space-y-4 w-max text-yellow-950">
         {showManageView && (
           <li>
@@ -58,7 +68,7 @@ const RecipesList = ({
                 search !== "<empty string>" && (
                   <li
                     key={`recipe-item-${index}-${recipe.title}`}
-                    className="flex relative flex-col"
+                    className="flex flex-col"
                   >
                     <div
                       className="flex flex-row rounded-full inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
@@ -67,16 +77,21 @@ const RecipesList = ({
                         setModalOpen(true);
                       }}
                     >
-                      <div className="flex flex-row w-full rounded-full items-center justify-between py-3 pl-12 pr-3 space-x-6">
-                        <div className="flex flex-col space-y-2">
+                      <div className="flex relative overflow-hidden flex-row w-full rounded-full items-center justify-between py-3 pl-12 space-x-6">
+                        <div className="flex w-2/3 flex-col space-y-2">
                           <h2 className="flex text-3xl">{recipe?.title}</h2>
-                          <div className="flex bg-yellow-950 rounded-full w-full h-0.5" />
                           <h3 className="flex">{recipe?.description}</h3>
                         </div>
-                        <PlaceHolderImage className="w-[200px]" />
+                        <PlaceHolderImage className="absolute right-0 inset-y-0 w-1/3" />
                       </div>
                     </div>
-                    {showManageView && <MutationBar recipe={recipe} />}
+                    {showManageView && (
+                      <MutationBar
+                        recipe={recipe}
+                        setRecipe={setEditRecipe}
+                        setShowModal={setShowModal}
+                      />
+                    )}
                   </li>
                 )
             )

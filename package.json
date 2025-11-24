@@ -7,12 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backup": "node backup/backup-recipes.js",
+    "restore": "node backup/restore-recipes.js",
+    "drive:auth": "node backup/auth-google.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@supabase/supabase-js": "^2.58.0",
     "@tailwindcss/vite": "^4.1.13",
+    "dotenv": "^17.2.3",
+    "googleapis": "^166.0.0",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

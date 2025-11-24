@@ -19,9 +19,9 @@ const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
     >
       {recipe && (
         <>
-          <div className="flex space-x-4">
+          <div className="flex w-full space-x-4">
             <div
-              className={`flex relative w-[74px]! items-center justify-center group cursor-pointer`}
+              className={`relative aspect-square h-[74px] items-center justify-center group cursor-pointer`}
               onClick={handleClose}
             >
               <div className="absolute inset-0 w-full h-full bg-theme-4 shadow transition-all duration-500 rounded-[37px] group-hover:rounded-3xl group-hover:animate-spin-slow" />
