@@ -284,7 +284,6 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
           placeholder="notes"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          required
         />
         <button
           type="submit"
