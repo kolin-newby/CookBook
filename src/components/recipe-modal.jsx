@@ -40,7 +40,6 @@ const IngredientInput = ({ ingredients, setIngredients, setOpenTab }) => {
               placeholder="ingedient"
               value={ingredient.name}
               onChange={(e) => updateItemName(e.target.value, index)}
-              required
             />
             <div className="flex w-full">
               <input
