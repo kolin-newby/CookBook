@@ -20,7 +20,7 @@ const RecipesList = ({
 
   return (
     <div
-      className={`inset-0 flex absolute w-full h-full items-start justify-center p-8`}
+      className={`inset-0 flex flex-col space-y-4 absolute w-full h-full overflow-hidden items-center justify-start p-8`}
     >
       {editRecipe && showModal && (
         <RecipeModal
@@ -29,7 +29,16 @@ const RecipesList = ({
           editRecipe={editRecipe}
         />
       )}
-      <ul className="flex flex-col space-y-4 w-max text-yellow-950">
+      <div className="flex w-full max-w-[800px] p-2 bg-theme-3 rounded-[50px]">
+        <input
+          className="flex rounded-[50px] text-lg py-2 px-6 w-full bg-theme-2"
+          type="text"
+          placeholder="search recipes..."
+          value={search}
+          onChange={(e) => setSearch(e?.target?.value)}
+        />
+      </div>
+      <ul className="flex flex-col space-y-4 w-max text-yellow-950 overflow-y-scroll">
         {showManageView && (
           <li>
             <NavLink
@@ -41,15 +50,6 @@ const RecipesList = ({
             </NavLink>
           </li>
         )}
-        <li className="flex p-1 rounded-[50px] bg-yellow-950/10 inset-shadow-sm w-full">
-          <input
-            className="flex rounded-[50px] text-lg py-2 px-6 w-full"
-            type="text"
-            placeholder="search recipes..."
-            value={search}
-            onChange={(e) => setSearch(e?.target?.value)}
-          />
-        </li>
         {loading ? (
           <Loading />
         ) : recipes.filter(
@@ -68,7 +68,7 @@ const RecipesList = ({
                 search !== "<empty string>" && (
                   <li
                     key={`recipe-item-${index}-${recipe.title}`}
-                    className="flex flex-col"
+                    className="flex flex-col w-full max-w-[800px]"
                   >
                     <div
                       className="flex flex-row rounded-[50px] inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
