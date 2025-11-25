@@ -37,26 +37,26 @@ const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
           <TabGroup className={"flex flex-col pt-4 items-center"}>
             <TabList
               className={
-                "flex bg-theme-4/10 inset-shadow-sm rounded-full justify-between max-w-[700px] w-full"
+                "flex bg-theme-4/10 inset-shadow-sm rounded-[50px] justify-between max-w-[700px] w-full"
               }
             >
               <Tab
                 className={
-                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-full px-3 py-2"
+                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-[50px] px-3 py-2"
                 }
               >
                 Ingredients
               </Tab>
               <Tab
                 className={
-                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-full px-3 py-2"
+                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-[50px] px-3 py-2"
                 }
               >
                 Directions
               </Tab>
               <Tab
                 className={
-                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-full px-3 py-2"
+                  "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-[50px] px-3 py-2"
                 }
               >
                 Notes

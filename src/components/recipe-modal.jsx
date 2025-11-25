@@ -65,7 +65,7 @@ const IngredientInput = ({ ingredients, setIngredients, setOpenTab }) => {
         ))}
       </div>
       <button
-        className="flex rounded-full bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
+        className="flex rounded-[50px] bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
         onClick={() =>
           setIngredients([
             ...ingredients,
@@ -91,7 +91,7 @@ const IngredientInput = ({ ingredients, setIngredients, setOpenTab }) => {
           );
           setOpenTab(null);
         }}
-        className="flex text-2xl rounded-full bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
+        className="flex text-2xl rounded-[50px] bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
       >
         <ChevronDown size={"30px"} />
         <h2>Close</h2>
@@ -139,7 +139,7 @@ const DirectionsInput = ({ steps, setSteps, setOpenTab }) => {
         ))}
       </ol>
       <button
-        className="flex rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
+        className="flex rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
         onClick={() => setSteps([...steps, ""])}
       >
         <Plus />
@@ -151,7 +151,7 @@ const DirectionsInput = ({ steps, setSteps, setOpenTab }) => {
           setSteps(validSteps.length > 0 ? validSteps : [""]);
           setOpenTab(null);
         }}
-        className="flex text-2xl rounded-full bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
+        className="flex text-2xl rounded-[50px] bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
       >
         <ChevronDown size={"30px"} />
         <h2>Close</h2>
@@ -242,7 +242,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         <div className="flex flex-row items-center space-x-4">
           <button
             onClick={handleClose}
-            className="flex items-center justify-center rounded-full transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer space-x-1"
+            className="flex items-center justify-center rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer space-x-1"
           >
             <X />
             <h2 className="text-xl">Cancel</h2>
@@ -253,7 +253,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         </div>
         <div className="flex">
           <input
-            className="flex rounded-full w-full transition-colors bg-theme-2 px-8 py-3"
+            className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
             placeholder="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -262,7 +262,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         </div>
         <div className="flex w-full items-center justify-center space-x-1">
           <input
-            className="w-full rounded-full transition-colors bg-theme-2 px-8 py-3"
+            className="w-full rounded-[50px] transition-colors bg-theme-2 px-8 py-3"
             type="number"
             min={0}
             placeholder="0"
@@ -274,7 +274,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
           <span className="flex text-xl">min(s)</span>
         </div>
         <textarea
-          className="flex rounded-full transition-colors bg-theme-2 px-8 py-3"
+          className="flex rounded-[50px] transition-colors bg-theme-2 px-8 py-3"
           placeholder="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -289,7 +289,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         />
         <button
           type="submit"
-          className="flex items-center justify-center rounded-full w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
+          className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
         >
           <Check />
           <h2>Submit</h2>

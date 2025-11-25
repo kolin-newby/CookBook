@@ -24,7 +24,7 @@ const Navbar = ({ open, setOpen }) => {
   return (
     <div className="sticky z-10 top-0 inset-x-0 h-nav w-full flex md:space-x-12 text-yellow-950 px-3 py-5">
       <div className="absolute -z-10 inset-0 w-full h-full bg-linear-to-r from-theme-4 to-theme-3 shadow-lg" />
-      <div className="flex flex-row bg-theme-1 rounded-full w-full md:w-auto h-full px-6 md:px-8 inset-shadow-sm items-center space-x-4">
+      <div className="flex flex-row bg-theme-1 rounded-[50px] w-full md:w-auto h-full px-6 md:px-8 inset-shadow-sm items-center space-x-4">
         <button onClick={() => setOpen(!open)}>
           <Compass
             className="flex md:hidden animate-compass-spin"
@@ -45,7 +45,7 @@ const Navbar = ({ open, setOpen }) => {
           </div>
         </div>
       </div>
-      <nav className="hidden md:flex bg-theme-1 rounded-full h-full w-1/2 justify-evenly inset-shadow-sm items-center px-8 space-x-10">
+      <nav className="hidden md:flex bg-theme-1 rounded-[50px] h-full w-1/2 justify-evenly inset-shadow-sm items-center px-8 space-x-10">
         {navLinks.map((item, index) => (
           <NavLink key={`nav-item-${index}`} to={item.path}>
             <h2 className="text-lg">{item.title.toUpperCase()}</h2>
@@ -62,7 +62,7 @@ const Navbar = ({ open, setOpen }) => {
             key={`nav-item-${index}`}
             to={item.path}
             className={
-              "flex w-full py-3 rounded-full justify-center bg-theme-5/10 inset-shadow-sm"
+              "flex w-full py-3 rounded-[50px] justify-center bg-theme-5/10 inset-shadow-sm"
             }
             onClick={() => setOpen(false)}
           >

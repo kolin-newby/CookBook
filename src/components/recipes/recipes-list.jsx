@@ -34,16 +34,16 @@ const RecipesList = ({
           <li>
             <NavLink
               to={"/recipes"}
-              className="flex w-full text-xl space-x-2 text-theme-1 rounded-full bg-theme-3 py-6 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"
+              className="flex w-full text-xl space-x-2 text-theme-1 rounded-[50px] bg-theme-3 py-6 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"
             >
               <X />
               <h2>Exit Edit Mode</h2>
             </NavLink>
           </li>
         )}
-        <li className="flex p-1 rounded-full bg-yellow-950/10 inset-shadow-sm w-full">
+        <li className="flex p-1 rounded-[50px] bg-yellow-950/10 inset-shadow-sm w-full">
           <input
-            className="flex rounded-full text-lg py-2 px-6 w-full"
+            className="flex rounded-[50px] text-lg py-2 px-6 w-full"
             type="text"
             placeholder="search recipes..."
             value={search}
@@ -71,18 +71,18 @@ const RecipesList = ({
                     className="flex flex-col"
                   >
                     <div
-                      className="flex flex-row rounded-full inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
+                      className="flex flex-row rounded-[50px] inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
                       onClick={() => {
                         setDisplayRecipe(recipe);
                         setModalOpen(true);
                       }}
                     >
-                      <div className="flex relative overflow-hidden flex-row w-full rounded-full items-center justify-between py-3 pl-12 space-x-6">
+                      <div className="flex relative overflow-hidden flex-row w-full rounded-[50px] items-center justify-between py-3 pl-12 space-x-6">
                         <div className="flex w-2/3 flex-col space-y-2">
                           <h2 className="flex text-3xl">{recipe?.title}</h2>
                           <h3 className="flex">{recipe?.description}</h3>
                         </div>
-                        <PlaceHolderImage className="absolute right-0 inset-y-0 w-1/3" />
+                        <PlaceHolderImage className="relative flex right-0 inset-y-0 h-full max-w-1/3" />
                       </div>
                     </div>
                     {showManageView && (

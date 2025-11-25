@@ -39,7 +39,7 @@ const LoginPage = () => {
       >
         <h2 className="text-3xl">Login</h2>
         <input
-          className="flex rounded-full bg-theme-2 py-2 px-10 text-center shadow"
+          className="flex rounded-[50px] bg-theme-2 py-2 px-10 text-center shadow"
           type="email"
           placeholder="email"
           autoComplete="email"
@@ -47,7 +47,7 @@ const LoginPage = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="flex rounded-full bg-theme-2 py-2 px-10 text-center shadow"
+          className="flex rounded-[50px] bg-theme-2 py-2 px-10 text-center shadow"
           type="password"
           placeholder="password"
           autoComplete="current-password"
@@ -56,7 +56,7 @@ const LoginPage = () => {
         />
         <button
           type="submit"
-          className="text-3xl rounded-full bg-theme-3 text-theme-1 py-2 px-10 shadow cursor-pointer transform transition-all duration-300 hover:shadow-lg hover:scale-[103%]"
+          className="text-3xl rounded-[50px] bg-theme-3 text-theme-1 py-2 px-10 shadow cursor-pointer transform transition-all duration-300 hover:shadow-lg hover:scale-[103%]"
         >
           <h2>Submit</h2>
         </button>

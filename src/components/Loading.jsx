@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 
 const Loading = () => {
   return (
-    <div className="flex rounded-full bg-theme-2 text-theme-5 text-xl w-full h-full px-2 py-4 items-center justify-center space-x-4 shadow-lg">
+    <div className="flex rounded-[50px] bg-theme-2 text-theme-5 text-xl w-full h-full px-2 py-4 items-center justify-center space-x-4 shadow-lg">
       <span>Loading</span>
       <div className="relative">
         <Loader2 className="flex inset-0 animate-spin-1 text-amber-600" />
