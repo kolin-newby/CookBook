@@ -92,7 +92,7 @@ const IngredientTab = ({
           onClick={() => {
             setIngredients((prev) => {
               const validIngredients = prev.filter(
-                (ingredient) => ingredient.name.trim().length > 0
+                (ingredient) => ingredient?.name?.trim().length > 0
               );
               return validIngredients.length > 0
                 ? validIngredients
