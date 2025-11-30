@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Edit, Trash } from "lucide-react";
 import { DeleteRecipe } from "../hooks";
-import RecipeModal from "../recipe-modal";
 
 const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);

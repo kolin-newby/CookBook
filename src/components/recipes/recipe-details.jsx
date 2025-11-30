@@ -3,7 +3,7 @@ import PlaceHolderImage from "../place-holder-image";
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
-const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
+const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
   // const [activeSection, setActiveSection] = useState(null);
 
   const handleClose = () => {
@@ -104,4 +104,4 @@ const RecipeDetailsModal = ({ setOpen, recipe, setRecipe }) => {
   );
 };
 
-export default RecipeDetailsModal;
+export default RecipeDetails;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import RecipeDetailsModal from "../components/recipes/recipe-details-modal";
+import RecipeDetails from "../components/recipes/recipe-details";
 import { QueryRecipes } from "../components/hooks";
 import RecipesList from "../components/recipes/recipes-list";
 import { useAuth } from "../components/auth/AuthContext";
@@ -69,7 +69,7 @@ const Recipes = () => {
         recipes={recipes}
         loading={loadingList}
       />
-      <RecipeDetailsModal
+      <RecipeDetails
         setOpen={setModalOpen}
         recipe={displayRecipe}
         setRecipe={setDisplayRecipe}

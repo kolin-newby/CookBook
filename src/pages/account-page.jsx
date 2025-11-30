@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../components/auth/AuthContext";
-import RecipeModal from "../components/recipe-modal";
+import RecipeModal from "../components/recipes/recipe-modal/recipe-modal";
 import { Edit, Plus } from "lucide-react";
 import { NavLink } from "react-router";
 

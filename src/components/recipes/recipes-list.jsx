@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PlaceHolderImage from "../place-holder-image";
 import MutationBar from "./mutation-bar";
-import RecipeModal from "../recipe-modal";
+import RecipeModal from "../recipes/recipe-modal/recipe-modal";
 import Loading from "../Loading";
 import { NavLink } from "react-router";
 import { X } from "lucide-react";
@@ -29,6 +29,17 @@ const RecipesList = ({
           editRecipe={editRecipe}
         />
       )}
+      {showManageView && (
+        <div className="flex w-full max-w-[800px]">
+          <NavLink
+            to={"/recipes"}
+            className="flex w-full text-xl space-x-2 text-theme-1 rounded-[50px] bg-theme-3 py-6 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"
+          >
+            <X />
+            <h2>Exit Edit Mode</h2>
+          </NavLink>
+        </div>
+      )}
       <div className="flex w-full max-w-[800px] p-2 bg-theme-3 rounded-[50px]">
         <input
           className="flex rounded-[50px] text-lg py-2 px-6 w-full bg-theme-2"
@@ -39,17 +50,6 @@ const RecipesList = ({
         />
       </div>
       <ul className="flex flex-col space-y-4 w-max text-yellow-950 overflow-y-scroll">
-        {showManageView && (
-          <li>
-            <NavLink
-              to={"/recipes"}
-              className="flex w-full text-xl space-x-2 text-theme-1 rounded-[50px] bg-theme-3 py-6 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[103%]"
-            >
-              <X />
-              <h2>Exit Edit Mode</h2>
-            </NavLink>
-          </li>
-        )}
         {loading ? (
           <Loading />
         ) : recipes.filter(
