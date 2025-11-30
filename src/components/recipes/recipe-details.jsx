@@ -34,7 +34,9 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
               <h3 className="text-sm md:text-base">{recipe?.description}</h3>
             </div>
           </div>
-          <TabGroup className={"flex flex-col pt-4 items-center"}>
+          <TabGroup
+            className={"flex flex-col pt-4 items-center h-full min-h-0"}
+          >
             <TabList
               className={
                 "flex bg-theme-4/10 inset-shadow-sm rounded-[50px] justify-between max-w-[700px] w-full"
@@ -62,12 +64,16 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
                 Notes
               </Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels
+              className={"flex flex-col grow w-full h-full min-h-0 py-2"}
+            >
               <TabPanel
                 id="ingredients-tab"
-                className={"flex flex-col items-center py-8"}
+                className={
+                  "flex flex-col items-center py-8 min-h-0 overflow-y-auto"
+                }
               >
-                <ul className="flex flex-col list-disc list-inside">
+                <ul className="flex flex-col list-disc list-inside space-y-4">
                   {recipe?.ingredients.length > 0 &&
                     recipe?.ingredients.map((ingredient, index) => (
                       <li key={`ingredient-${index}`} className="space-x-1.5">
@@ -79,9 +85,11 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
               </TabPanel>
               <TabPanel
                 id="directions-tab"
-                className={"flex flex-col items-center py-8"}
+                className={
+                  "flex flex-col items-center py-8 min-h-0 overflow-y-auto"
+                }
               >
-                <ul className="flex flex-col list-decimal list-inside">
+                <ul className="flex flex-col list-decimal list-inside space-y-8">
                   {recipe?.directions?.steps?.length > 0 &&
                     recipe?.directions?.steps?.map((step, index) => (
                       <li key={`ingredient-${index}`} className="space-x-2">
@@ -92,9 +100,13 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
               </TabPanel>
               <TabPanel
                 id="notes-tab"
-                className={"flex flex-col items-center py-8"}
+                className={
+                  "flex flex-col items-center py-8 min-h-0 overflow-y-auto"
+                }
               >
-                <span>{recipe?.notes}</span>
+                <span className="whitespace-pre-wrap text-sm md:text-base">
+                  {recipe?.notes}
+                </span>
               </TabPanel>
             </TabPanels>
           </TabGroup>
