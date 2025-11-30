@@ -49,7 +49,7 @@ const RecipesList = ({
           onChange={(e) => setSearch(e?.target?.value)}
         />
       </div>
-      <ul className="flex flex-col space-y-4 w-max text-yellow-950 overflow-y-scroll">
+      <ul className="flex flex-col space-y-4 w-full items-center p-4 text-yellow-950 overflow-y-scroll">
         {loading ? (
           <Loading />
         ) : recipes.filter(
@@ -71,18 +71,22 @@ const RecipesList = ({
                     className="flex flex-col w-full max-w-[800px]"
                   >
                     <div
-                      className="flex flex-row rounded-[50px] inset-shadow-sm p-1 space-x-4 items-center justify-center transition-all duration-300 cursor-pointer bg-yellow-950/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
+                      className="flex flex-row w-full rounded-[50px] inset-shadow-sm items-center justify-center transition-all duration-300 cursor-pointer bg-theme-4/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
                       onClick={() => {
                         setDisplayRecipe(recipe);
                         setModalOpen(true);
                       }}
                     >
-                      <div className="flex relative overflow-hidden flex-row w-full rounded-[50px] items-center justify-between py-3 pl-12 space-x-6">
-                        <div className="flex w-2/3 flex-col space-y-2">
-                          <h2 className="flex text-3xl">{recipe?.title}</h2>
-                          <h3 className="flex">{recipe?.description}</h3>
+                      <div className="flex flex-col relative overflow-hidden w-full rounded-[50px] items-center justify-center">
+                        <div className="flex relative w-full px-4 py-4 items-center justify-center bg-theme-4/40">
+                          <PlaceHolderImage className="-z-10" />
+                          <h2 className="flex text-theme-1 items-center justify-center text-2xl md:text-3xl">
+                            {recipe?.title}
+                          </h2>
                         </div>
-                        <PlaceHolderImage className="relative flex right-0 inset-y-0 h-full max-w-1/3" />
+                        <h3 className="flex text-xs md:text-base pb-6 pt-2 px-4">
+                          {recipe?.description}
+                        </h3>
                       </div>
                     </div>
                     {showManageView && (
