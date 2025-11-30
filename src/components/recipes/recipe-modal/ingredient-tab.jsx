@@ -30,7 +30,7 @@ const IngredientTab = ({
         >
           <h2 className="flex">Ingredients</h2>
           {(ingredients.length > 1 ||
-            (ingredients[0].name && ingredients[0].name.length > 0)) && (
+            (ingredients[0] && ingredients[0].name.length > 0)) && (
             <div className="flex items-center justify-center">
               <h2 className="flex relative size-[40px] z-10 items-center justify-center text-theme-3">
                 <div className="absolute inset-0 w-full -z-10 h-full animate-spin-slow bg-theme-1 size-[40px] rounded-[15px] items-center justify-center" />
@@ -43,7 +43,7 @@ const IngredientTab = ({
       <div className="flex flex-col max-w-[1000px] h-full rounded-[50px] bg-theme-1 inset-shadow-sm py-6 px-8 space-y-3">
         <h2 className="flex text-2xl justify-center py-3">Add Ingredients</h2>
         <div className="flex flex-col space-y-3 w-full  h-[470px] min-h-12 overflow-y-auto p-1 pb-3">
-          {ingredients?.map((ingredient, index) => (
+          {ingredients.map((ingredient, index) => (
             <div
               key={`ingredient-${index}`}
               className="flex flex-col space-x-4"
@@ -96,7 +96,7 @@ const IngredientTab = ({
               );
               return validIngredients.length > 0
                 ? validIngredients
-                : { name: "", qty: "" };
+                : [{ name: "", qty: "" }];
             });
             setOpenTab(null);
           }}
