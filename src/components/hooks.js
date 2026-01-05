@@ -1,7 +1,11 @@
 import { SBClient } from "./supabaseClient";
 
-export const QueryRecipes = async () => {
-  return await SBClient.from("recipes").select("*");
+export const QueryActiveRecipes = async () => {
+  return await SBClient.from("recipes").select("*").eq("active", true);
+};
+
+export const QueryInactiveRecipes = async () => {
+  return await SBClient.from("recipes").select("*").eq("active", false);
 };
 
 export const AddRecipe = async (recipe) => {
@@ -9,10 +13,11 @@ export const AddRecipe = async (recipe) => {
     {
       title: recipe.title,
       description: recipe.description,
-      prep_time_mins: recipe.prepTime,
+      prepTimeMins: recipe.prepTimeMins,
       notes: recipe.notes,
       ingredients: recipe.ingredients,
-      directions: recipe.directions,
+      steps: recipe.steps,
+      active: recipe.active,
     },
   ]);
 };
@@ -22,7 +27,6 @@ export const DeleteRecipe = async (recipeId) => {
 };
 
 export const UpdateRecipe = async (recipeId, partialRecipe) => {
-  console.log(partialRecipe);
   return await SBClient.from("recipes")
     .update(partialRecipe)
     .eq("id", recipeId)

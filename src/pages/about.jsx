@@ -1,5 +1,4 @@
 import React from "react";
-import { QueryRecipes } from "../components/hooks";
 
 const About = () => {
   return (

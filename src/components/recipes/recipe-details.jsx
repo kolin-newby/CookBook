@@ -2,8 +2,14 @@ import { MoveLeftIcon, X } from "lucide-react";
 import PlaceHolderImage from "../place-holder-image";
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import ActivityTag from "../activity-tag";
 
-const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
+const RecipeDetails = ({
+  setOpen,
+  recipe,
+  setRecipe,
+  showManageView = false,
+}) => {
   // const [activeSection, setActiveSection] = useState(null);
 
   const handleClose = () => {
@@ -30,7 +36,12 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
               </div>
             </div>
             <div className="flex flex-col space-y-2">
-              <h2 className="text-2xl md:text-4xl">{recipe?.title}</h2>
+              <span className="flex flex-row items-center">
+                <h2 className="flex text-2xl md:text-4xl">{recipe?.title}</h2>
+                {showManageView && (
+                  <ActivityTag active={recipe?.active} className="mx-2" />
+                )}
+              </span>
               <h3 className="text-sm md:text-base">{recipe?.description}</h3>
             </div>
           </div>
@@ -54,7 +65,7 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
                   "data-selected:bg-theme-4 data-selected:text-theme-1 outline-none rounded-[50px] px-3 py-2"
                 }
               >
-                Directions
+                Steps
               </Tab>
               <Tab
                 className={
@@ -84,14 +95,14 @@ const RecipeDetails = ({ setOpen, recipe, setRecipe }) => {
                 </ul>
               </TabPanel>
               <TabPanel
-                id="directions-tab"
+                id="steps-tab"
                 className={
                   "flex flex-col items-center py-8 min-h-0 overflow-y-auto"
                 }
               >
                 <ul className="flex flex-col list-decimal list-inside space-y-8">
-                  {recipe?.directions?.steps?.length > 0 &&
-                    recipe?.directions?.steps?.map((step, index) => (
+                  {recipe?.steps?.length > 0 &&
+                    recipe?.steps?.map((step, index) => (
                       <li key={`ingredient-${index}`} className="space-x-2">
                         <span>{step}</span>
                       </li>

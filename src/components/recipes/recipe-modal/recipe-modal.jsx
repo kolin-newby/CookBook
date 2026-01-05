@@ -1,22 +1,16 @@
 import { Check, LoaderCircle, X } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { AddRecipe, UpdateRecipe } from "../../hooks";
 import IngredientTab from "./ingredient-tab";
 import DirectionTab from "./direction-tab";
+import { useRecipe } from "./useRecipe";
 
 const RecipeModal = ({ show, setShow, editRecipe = null }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [note, setNote] = useState("");
-  const [ingredients, setIngredients] = useState([{ name: "", qty: "" }]);
-  const [steps, setSteps] = useState([""]);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
-
   const [openTab, setOpenTab] = useState(null);
 
-  const [prepTimeMins, setPrepTimeMins] = useState(0);
+  const { values, updateField, clearDraft } = useRecipe(editRecipe, show);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,12 +20,13 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
     try {
       if (editRecipe === null) {
         const response = await AddRecipe({
-          title,
-          description,
-          prepTime: prepTimeMins,
-          notes: note,
-          ingredients,
-          directions: { steps },
+          active: values.active,
+          title: values.title,
+          description: values.description,
+          prepTimeMins: values.prepTimeMins,
+          notes: values.notes,
+          ingredients: values.ingredients,
+          steps: values.steps,
         });
 
         if (response.status === 201) {
@@ -43,12 +38,13 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         console.error("AddRecipe failed:", response);
       } else {
         const response = await UpdateRecipe(editRecipe.id, {
-          title,
-          description,
-          prep_time_mins: prepTimeMins,
-          notes: note,
-          ingredients,
-          directions: { steps },
+          title: values.title,
+          description: values.description,
+          prepTimeMins: values.prepTimeMins,
+          notes: values.notes,
+          ingredients: values.ingredients,
+          steps: values.steps,
+          active: values.active,
         });
 
         if (response.status === 200) {
@@ -68,33 +64,9 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
   };
 
   const handleClose = () => {
+    clearDraft();
     setShow(false);
   };
-
-  const handleTimeInput = (e) => {
-    const input = Number(e.target.value);
-
-    if (Number.isNaN(input) || input < 0) {
-      setPrepTimeMins(0);
-    } else {
-      setPrepTimeMins(input);
-    }
-  };
-
-  const setInitialValues = useCallback(() => {
-    setTitle(editRecipe.title);
-    setDescription(editRecipe.description);
-    setNote(editRecipe.notes);
-    setPrepTimeMins(editRecipe.prep_time_mins);
-    setSteps(editRecipe.directions.steps);
-    setIngredients(editRecipe.ingredients);
-  }, [editRecipe]);
-
-  useEffect(() => {
-    if (editRecipe !== null) {
-      setInitialValues();
-    }
-  }, [editRecipe, setInitialValues]);
 
   return (
     <form
@@ -106,6 +78,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
       <div className="flex flex-col max-w-[800px] w-full space-y-4">
         <div className="flex flex-row items-center space-x-4">
           <button
+            type="button"
             onClick={handleClose}
             className="flex items-center justify-center rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer space-x-1"
           >
@@ -120,8 +93,8 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
           <input
             className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
             placeholder="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={values.title}
+            onChange={(e) => updateField("title", e.target.value)}
             required
           />
         </div>
@@ -131,9 +104,9 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
             type="number"
             min={0}
             placeholder="0"
-            value={prepTimeMins}
-            onChange={handleTimeInput}
-            id="prep_time_mins"
+            value={values.prepTimeMins}
+            onChange={(e) => updateField("prepTimeMins", e.target.value)}
+            id="prepTimeMins"
             required
           />
           <span className="flex text-xl">min(s)</span>
@@ -141,16 +114,23 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         <textarea
           className="flex rounded-[50px] transition-colors bg-theme-2 px-8 py-3"
           placeholder="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={values.description}
+          onChange={(e) => updateField("description", e.target.value)}
           required
         />
         <textarea
           className="flex flex-col rounded-[48px] max-h-36 h-fit grow transition-colors bg-theme-2 px-8 py-3"
           placeholder="notes"
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
+          value={values.notes}
+          onChange={(e) => updateField("notes", e.target.value)}
         />
+        <button
+          type="button"
+          className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
+          onClick={() => updateField("active", !values.active)}
+        >
+          {values.active ? "ACTIVE" : "INACTIVE"}
+        </button>
         <button
           type="submit"
           className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
@@ -163,14 +143,24 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
       <IngredientTab
         openTab={openTab}
         setOpenTab={setOpenTab}
-        ingredients={ingredients}
-        setIngredients={setIngredients}
+        ingredients={values.ingredients}
+        setIngredients={(updater) => {
+          const next =
+            typeof updater === "function"
+              ? updater(values.ingredients)
+              : updater;
+          updateField("ingredients", next);
+        }}
       />
       <DirectionTab
         openTab={openTab}
         setOpenTab={setOpenTab}
-        steps={steps}
-        setSteps={setSteps}
+        steps={values.steps}
+        setSteps={(updater) => {
+          const next =
+            typeof updater === "function" ? updater(values.steps) : updater;
+          updateField("steps", next);
+        }}
       />
     </form>
   );

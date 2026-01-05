@@ -2,14 +2,15 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import RecipeDetails from "../components/recipes/recipe-details";
-import { QueryRecipes } from "../components/hooks";
+import { QueryActiveRecipes, QueryInactiveRecipes } from "../components/hooks";
 import RecipesList from "../components/recipes/recipes-list";
 import { useAuth } from "../components/auth/AuthContext";
 
 const Recipes = () => {
   const [displayRecipe, setDisplayRecipe] = useState(null);
   const [changedHash, setChangedHash] = useState(false);
-  const [recipes, setRecipes] = useState([]);
+  const [activeRecipes, setActiveRecipes] = useState([]);
+  const [inactiveRecipes, setInactiveRecipes] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
   const [loadingList, setLoadingList] = useState(false);
@@ -19,18 +20,25 @@ const Recipes = () => {
 
   const fetchRecipes = useCallback(() => {
     setLoadingList(true);
-    QueryRecipes()
+    QueryActiveRecipes()
       .then((resp) => {
         if (resp.error) console.error(resp.error);
-        else setRecipes(resp.data);
+        else setActiveRecipes(resp.data);
       })
       .finally(() => {
         setLoadingList(false);
       });
-  }, []);
+
+    if (isAdmin && mode === "edit") {
+      QueryInactiveRecipes().then((resp) => {
+        if (resp.error) console.error(resp.error);
+        else setInactiveRecipes(resp.data);
+      });
+    }
+  }, [isAdmin, mode]);
 
   const updateDisplayRecipe = useCallback(() => {
-    const tmp = recipes.filter(
+    const tmp = activeRecipes.filter(
       (recipe) => `#${recipe?.id}` === window.location.hash
     );
     if (tmp.length === 1) {
@@ -43,7 +51,7 @@ const Recipes = () => {
       );
 
     setChangedHash(false);
-  }, [recipes, setDisplayRecipe, setChangedHash]);
+  }, [activeRecipes, setDisplayRecipe, setChangedHash]);
 
   useEffect(() => {
     fetchRecipes();
@@ -66,13 +74,15 @@ const Recipes = () => {
         showManageView={isAdmin && mode === "edit"}
         setModalOpen={setModalOpen}
         setDisplayRecipe={setDisplayRecipe}
-        recipes={recipes}
+        activeRecipes={activeRecipes}
+        inactiveRecipes={isAdmin && mode === "edit" ? inactiveRecipes : null}
         loading={loadingList}
       />
       <RecipeDetails
         setOpen={setModalOpen}
         recipe={displayRecipe}
         setRecipe={setDisplayRecipe}
+        showManageView={isAdmin && mode === "edit"}
       />
     </div>
   );
