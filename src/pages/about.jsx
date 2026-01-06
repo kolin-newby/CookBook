@@ -10,10 +10,7 @@ const About = () => {
         /> */}
         <div className="flex rounded-[200px] bg-theme-3 p-5 transform">
           <div className="flex aspect-square max-w-[600px] w-full rounded-[200px] overflow-hidden">
-            <img
-              src="/public/photos/KF.jpg"
-              className=" object-cover size-full"
-            />
+            <img src="/photos/KF.jpg" className=" object-cover size-full" />
           </div>
         </div>
       </div>
