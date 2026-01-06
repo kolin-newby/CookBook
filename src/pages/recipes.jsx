@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import RecipeDetails from "../components/recipes/recipe-details";
@@ -18,7 +18,10 @@ const Recipes = () => {
   const activeQuery = UseActiveRecipes();
   const inactiveQuery = UseInactiveRecipes({ queryEnabled: showManageView });
 
-  const activeRecipes = activeQuery.data ?? [];
+  const activeRecipes = useMemo(
+    () => activeQuery.data ?? [],
+    [activeQuery.data]
+  );
   const inactiveRecipes = showManageView ? inactiveQuery.data ?? [] : null;
 
   const updateDisplayRecipe = useCallback(() => {
