@@ -1,65 +1,52 @@
 import { Check, LoaderCircle, X } from "lucide-react";
-import { useState } from "react";
-import { AddRecipe, UpdateRecipe } from "../../hooks";
+import { useState, useEffect } from "react";
 import IngredientTab from "./ingredient-tab";
 import DirectionTab from "./direction-tab";
 import { useRecipe } from "./useRecipe";
+import UseCreateRecipeMutation from "../hooks/use-create-recipe-mutation";
+import UseUpdateRecipeMutation from "../hooks/use-update-recipe-mutation";
 
 const RecipeModal = ({ show, setShow, editRecipe = null }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
   const [openTab, setOpenTab] = useState(null);
 
   const { values, updateField, clearDraft } = useRecipe(editRecipe, show);
 
+  const createRecipe = UseCreateRecipeMutation();
+  const updateRecipe = UseUpdateRecipeMutation();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError(null);
-    setIsSubmitting(true);
 
     try {
       if (editRecipe === null) {
-        const response = await AddRecipe({
-          active: values.active,
-          title: values.title,
-          description: values.description,
-          prepTimeMins: values.prepTimeMins,
-          notes: values.notes,
-          ingredients: values.ingredients,
-          steps: values.steps,
+        await createRecipe.mutateAsync({
+          recipe: {
+            active: values.active,
+            title: values.title,
+            description: values.description,
+            prepTimeMins: values.prepTimeMins,
+            notes: values.notes,
+            ingredients: values.ingredients,
+            steps: values.steps,
+          },
         });
-
-        if (response.status === 201) {
-          handleClose();
-          return;
-        }
-
-        setSubmitError(`Failed to create recipe (status ${response.status}).`);
-        console.error("AddRecipe failed:", response);
       } else {
-        const response = await UpdateRecipe(editRecipe.id, {
-          title: values.title,
-          description: values.description,
-          prepTimeMins: values.prepTimeMins,
-          notes: values.notes,
-          ingredients: values.ingredients,
-          steps: values.steps,
-          active: values.active,
+        await updateRecipe.mutateAsync({
+          recipeId: editRecipe.id,
+          partialRecipe: {
+            title: values.title,
+            description: values.description,
+            prepTimeMins: values.prepTimeMins,
+            notes: values.notes,
+            ingredients: values.ingredients,
+            steps: values.steps,
+            active: values.active,
+          },
         });
-
-        if (response.status === 200) {
-          handleClose();
-          return;
-        }
-
-        setSubmitError(`Failed to update recipe (status ${response.status}).`);
-        console.error("UpdateRecipe failed:", response);
       }
+      handleClose();
     } catch (err) {
       console.error("Unexpected error while saving recipe:", err);
-      setSubmitError("Something went wrong while saving this recipe.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -67,6 +54,10 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
     clearDraft();
     setShow(false);
   };
+
+  useEffect(() => {
+    console.log(updateRecipe);
+  }, [updateRecipe]);
 
   return (
     <form
@@ -133,12 +124,16 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
         </button>
         <button
           type="submit"
+          disabled={createRecipe.isPending || updateRecipe.isPending}
           className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
         >
-          {isSubmitting ? <LoaderCircle className="animate-spin" /> : <Check />}
+          {createRecipe.isPending || updateRecipe.isPending ? (
+            <LoaderCircle className="animate-spin" />
+          ) : (
+            <Check />
+          )}
           <h2>Submit</h2>
         </button>
-        {submitError && <span className="flex">{submitError}</span>}
       </div>
       <IngredientTab
         openTab={openTab}

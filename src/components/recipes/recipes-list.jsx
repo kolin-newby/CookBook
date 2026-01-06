@@ -4,7 +4,7 @@ import MutationBar from "./mutation-bar";
 import RecipeModal from "../recipes/recipe-modal/recipe-modal";
 import Loading from "../Loading";
 import { NavLink } from "react-router";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import InactiveTag from "../activity-tag";
 
 const RecipesList = ({
@@ -52,7 +52,7 @@ const RecipesList = ({
     <div
       className={`inset-0 flex flex-col space-y-4 absolute w-full h-full overflow-hidden items-center justify-start p-8`}
     >
-      {editRecipe && showModal && (
+      {showModal && (
         <RecipeModal
           show={showModal}
           setShow={setShowModal}
@@ -61,10 +61,16 @@ const RecipesList = ({
       )}
       <div
         className={`flex w-full max-w-[800px] ${
-          showManageView ? "space-x-2" : "space-x-0"
+          showManageView
+            ? "space-x-2 flex-col sm:flex-row items-center space-y-2 sm:space-y-0"
+            : "space-x-0"
         }`}
       >
-        <div className={"flex bg-theme-3 rounded-[50px] p-2 w-full"}>
+        <div
+          className={`flex bg-theme-3 rounded-[50px] p-2 w-full ${
+            showManageView ? "sm:w-2/3" : ""
+          }`}
+        >
           <input
             className="flex rounded-[50px] text-lg py-2 px-6 w-full bg-theme-2"
             type="text"
@@ -74,13 +80,20 @@ const RecipesList = ({
           />
         </div>
         {showManageView && (
-          <div className="flex w-full max-w-[600px]">
+          <div className="flex w-full sm:w-1/3 space-x-2 text-lg">
+            <button
+              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[102%]"
+              onClick={() => setShowModal(true)}
+            >
+              <Plus />
+              <h2>Add</h2>
+            </button>
             <NavLink
               to={"/recipes"}
-              className="flex w-full text-xl space-x-2 text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[102%]"
+              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[102%]"
             >
               <X />
-              <h2>Exit Edit Mode</h2>
+              <h2>Done</h2>
             </NavLink>
           </div>
         )}

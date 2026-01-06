@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Edit, Trash } from "lucide-react";
-import { DeleteRecipe } from "../hooks";
+import UseDeleteRecipeMutation from "./hooks/use-delete-recipe-mutation";
 
 const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const deleteRecipe = UseDeleteRecipeMutation();
 
   const handleDelete = () => {
     if (!confirmDelete) {
@@ -11,9 +13,7 @@ const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
       return;
     }
 
-    DeleteRecipe(recipe.id).then((data) => {
-      //TODO handle errors
-    });
+    deleteRecipe.mutate(recipe.id);
   };
 
   const handleEdit = () => {
