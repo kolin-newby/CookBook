@@ -50,7 +50,7 @@ const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
         ) : (
           <Trash className="flex" />
         )}
-        <h2>{confirmDelete ? "Are You Sure?" : "Delete"}</h2>
+        <h2>{confirmDelete ? "Confirm?" : "Delete"}</h2>
       </button>
     </div>
   );
