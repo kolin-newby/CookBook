@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import About from "./pages/about";
 import AccountPage from "./pages/account-page";
 import LoginPage from "./pages/login-page";
+import { NotificationProvider } from "./components/notifications/NotificationProvider";
 
 const queryClient = new QueryClient();
 
@@ -19,31 +20,33 @@ const App = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <div className="relative flex flex-col w-full h-screen justify-center items-center bg-yellow-950/20 overflow-hidden">
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AuthProvider>
-            <Navbar open={navOpen} setOpen={setNavOpen} />
-            <div
-              className="flex w-full h-app-full"
-              onClick={() => {
-                if (navOpen) setNavOpen(false);
-              }}
-            >
-              <Routes>
-                <Route element={<RequireAuth />}>
-                  <Route path="/" element={<About />} />
-                  <Route path="/recipes/:mode" element={<Recipes />} />
-                  <Route path="/recipes" element={<Recipes />} />
-                  <Route path="/account" element={<AccountPage />} />
-                </Route>
-                <Route path="login" element={<LoginPage />} />
-              </Routes>
-            </div>
-          </AuthProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </div>
+    <NotificationProvider>
+      <div className="relative flex flex-col w-full h-screen justify-center items-center bg-yellow-950/20 overflow-hidden">
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <AuthProvider>
+              <Navbar open={navOpen} setOpen={setNavOpen} />
+              <div
+                className="flex w-full h-app-full"
+                onClick={() => {
+                  if (navOpen) setNavOpen(false);
+                }}
+              >
+                <Routes>
+                  <Route element={<RequireAuth />}>
+                    <Route path="/" element={<About />} />
+                    <Route path="/recipes/:mode" element={<Recipes />} />
+                    <Route path="/recipes" element={<Recipes />} />
+                    <Route path="/account" element={<AccountPage />} />
+                  </Route>
+                  <Route path="login" element={<LoginPage />} />
+                </Routes>
+              </div>
+            </AuthProvider>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </div>
+    </NotificationProvider>
   );
 };
 

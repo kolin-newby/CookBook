@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SBClient } from "./../../supabaseClient";
 
 const updateRecipe = async ({ recipeId, partialRecipe }) => {
-  console.log(partialRecipe);
   const { data, error } = await SBClient.from("recipes")
     .update(partialRecipe)
     .eq("id", recipeId)

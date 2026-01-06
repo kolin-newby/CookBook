@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Edit, Trash } from "lucide-react";
+import { Edit, LoaderCircle, Trash } from "lucide-react";
 import UseDeleteRecipeMutation from "./hooks/use-delete-recipe-mutation";
+import UseNotify from "../notifications/UseNotify";
 
 const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const deleteRecipe = UseDeleteRecipeMutation();
+  const notify = UseNotify();
 
   const handleDelete = () => {
     if (!confirmDelete) {
@@ -13,7 +15,12 @@ const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
       return;
     }
 
-    deleteRecipe.mutate(recipe.id);
+    try {
+      deleteRecipe.mutateAsync(recipe.id);
+      notify("Successfully deleted recipe!");
+    } catch (err) {
+      notify(`Failed to delete recipe: ${err.message}`);
+    }
   };
 
   const handleEdit = () => {
@@ -38,7 +45,11 @@ const MutationBar = ({ recipe, setRecipe, setShowModal }) => {
           if (confirmDelete) setConfirmDelete(false);
         }}
       >
-        <Trash className="flex" />
+        {deleteRecipe.isPending ? (
+          <LoaderCircle className="animate-spin" />
+        ) : (
+          <Trash className="flex" />
+        )}
         <h2>{confirmDelete ? "Are You Sure?" : "Delete"}</h2>
       </button>
     </div>

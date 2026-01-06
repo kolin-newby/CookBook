@@ -1,10 +1,11 @@
 import { Check, LoaderCircle, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import IngredientTab from "./ingredient-tab";
 import DirectionTab from "./direction-tab";
 import { useRecipe } from "./useRecipe";
 import UseCreateRecipeMutation from "../hooks/use-create-recipe-mutation";
 import UseUpdateRecipeMutation from "../hooks/use-update-recipe-mutation";
+import UseNotify from "../../notifications/UseNotify";
 
 const RecipeModal = ({ show, setShow, editRecipe = null }) => {
   const [openTab, setOpenTab] = useState(null);
@@ -13,6 +14,8 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
 
   const createRecipe = UseCreateRecipeMutation();
   const updateRecipe = UseUpdateRecipeMutation();
+
+  const notify = UseNotify();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,9 +47,11 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
           },
         });
       }
+      notify("Recipe saved successfully!");
       handleClose();
     } catch (err) {
       console.error("Unexpected error while saving recipe:", err);
+      notify(`Failed to save recipe: ${err.message}`);
     }
   };
 
@@ -54,10 +59,6 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
     clearDraft();
     setShow(false);
   };
-
-  useEffect(() => {
-    console.log(updateRecipe);
-  }, [updateRecipe]);
 
   return (
     <form
