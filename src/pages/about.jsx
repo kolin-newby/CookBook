@@ -2,24 +2,8 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="flex flex-col sm:flex-row w-full h-full p-10 space-x-6 items-center justify-center">
-      {/* <div className="relative flex w-full sm:w-1/3 sm:h-full max-h-[700px]">
-        <div className="flex relative p-6 max-w-1/2 w-full aspect-square self-end sm:self-auto">
-          <div className="absolute top-0 left-0 w-full h-full rounded-[40%] border-34 sm:border-40 border-theme-3 animate-spin-xslow" />
-          <img
-            src="/photos/KF.jpg"
-            className=" object-cover size-full rounded-[40%]"
-          />
-        </div>
-        <div className="flex relative aspect-square p-6 max-w-1/2 self-start sm:self-auto">
-          <div className="absolute top-0 left-0 w-full h-full rounded-[40%] border-34 sm:border-40 border-theme-4 animate-spin-xslow-reverse" />
-          <img
-            src="/photos/JZ.jpg"
-            className=" object-cover size-full rounded-[40%]"
-          />
-        </div>
-      </div> */}
-      <div className="flex flex-row sm:flex-col w-11/12 sm:w-1/2 md:w-1/2 items-center justify-center">
+    <div className="flex flex-col sm:flex-row w-full h-full p-6 pb-12 sm:space-x-6 items-center justify-center">
+      <div className="flex flex-row sm:flex-col w-full sm:w-1/2 md:w-1/2 items-center justify-center">
         <div className="relative flex p-2 w-1/2 max-w-[220px] sm:w-full aspect-square">
           <div className="absolute top-0 left-0 w-full h-full rounded-[40%] border-20 sm:border-40 border-theme-3 animate-spin-xslow" />
           <img
