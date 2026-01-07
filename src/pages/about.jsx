@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="flex flex-col sm:flex-row w-full h-full p-6 pb-12 sm:space-x-6 items-center justify-center">
+    <div className="flex flex-col sm:flex-row w-full h-full p-6 pb-12 items-center justify-center">
       <div className="flex flex-row sm:flex-col w-full sm:w-1/2 md:w-1/2 items-center justify-center">
         <div className="relative flex p-2 w-1/2 max-w-[220px] sm:w-full aspect-square">
           <div className="absolute top-0 left-0 w-full h-full rounded-[40%] border-20 sm:border-40 border-theme-3 animate-spin-xslow" />
