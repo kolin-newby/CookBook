@@ -64,6 +64,9 @@
 
   --animate-spin-slow: spin 2500ms linear infinite;
 
+  --animate-spin-xslow: spin 5000ms linear infinite;
+  --animate-spin-xslow-reverse: spin 6000ms linear reverse infinite;
+
   --animate-compass-spin: spin 2500ms infinite;
 
   --animate-spin-1: spin 500ms linear infinite;
