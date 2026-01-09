@@ -5,7 +5,7 @@ import { Transition, TransitionChild } from "@headlessui/react";
 
 const createId = () => `${Date.now()}-${Math.random()}`;
 
-export const NotificationProvider = ({ children, duration = 10000 }) => {
+export const NotificationProvider = ({ children, duration = 3000 }) => {
   const [notifications, setNotifications] = useState([]);
   const timers = useRef(new Map());
 
@@ -19,7 +19,6 @@ export const NotificationProvider = ({ children, duration = 10000 }) => {
 
   const dismiss = useCallback(
     (id) => {
-      console.log(id);
       clearTimer(id);
       setNotifications((prev) =>
         prev.map((n) => (n.id === id ? { ...n, open: false } : n))
@@ -68,6 +67,7 @@ export const NotificationProvider = ({ children, duration = 10000 }) => {
 
       <Transition
         show={showViewport}
+        as={"div"}
         appear
         className="fixed bottom-4 left-0 right-0 sm:left-1/2 z-50 sm:-translate-x-1/2 space-y-1 mx-0.5"
         enter="transition transform duration-200 linear"
@@ -77,39 +77,38 @@ export const NotificationProvider = ({ children, duration = 10000 }) => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-full"
       >
-        <div>
-          {notifications.map((n) => (
-            <TransitionChild
-              key={n.id}
-              show={n.open}
-              appear
-              afterLeave={() => finalizeRemove(n.id)}
-              enter="transition transform duration-200 ease-out"
-              enterFrom="opacity-0 translate-y-2"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition transform duration-150 ease-in"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-2"
-            >
-              <div className="w-full p-1 bg-theme-2 rounded-[50px]">
-                <div className="flex items-center justify-between rounded-[50px] bg-theme-4 px-4 py-3 text-sm shadow text-theme-1">
-                  <h2 className="flex flex-1 items-center justify-center">
-                    {n.message}
-                  </h2>
+        {notifications.map((n) => (
+          <TransitionChild
+            as={"div"}
+            key={n.id}
+            show={n.open}
+            appear
+            afterLeave={() => finalizeRemove(n.id)}
+            enter="transition transform duration-200 ease-out"
+            enterFrom="opacity-0 translate-y-2"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition transform duration-150 ease-in"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-2"
+          >
+            <div className="w-full p-1 bg-theme-2 rounded-[50px]">
+              <div className="flex items-center justify-between rounded-[50px] bg-theme-4 px-4 py-3 text-sm shadow text-theme-1">
+                <h2 className="flex flex-1 items-center justify-center">
+                  {n.message}
+                </h2>
 
-                  <button
-                    type="button"
-                    onClick={() => dismiss(n.id)}
-                    className="ml-4 rounded-full bg-transparent p-2 hover:bg-theme-2 text-theme-1 hover:text-theme-4 cursor-pointer transition-colors duration-200"
-                    aria-label="Dismiss notification"
-                  >
-                    <X />
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => dismiss(n.id)}
+                  className="ml-4 rounded-full bg-transparent p-2 hover:bg-theme-2 text-theme-1 hover:text-theme-4 cursor-pointer transition-colors duration-200"
+                  aria-label="Dismiss notification"
+                >
+                  <X />
+                </button>
               </div>
-            </TransitionChild>
-          ))}
-        </div>
+            </div>
+          </TransitionChild>
+        ))}
       </Transition>
     </NotificationContext.Provider>
   );

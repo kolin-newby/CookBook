@@ -31,6 +31,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
             notes: values.notes,
             ingredients: values.ingredients,
             steps: values.steps,
+            source: values.source,
           },
         });
       } else {
@@ -44,6 +45,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
             ingredients: values.ingredients,
             steps: values.steps,
             active: values.active,
+            source: values.source,
           },
         });
       }
@@ -65,9 +67,9 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
       onSubmit={handleSubmit}
       className={`absolute inset-0 z-10 transition-transform transform duration-300 overflow-hidden ${
         show ? "translate-x-0" : "translate-x-full"
-      } flex flex-col w-full items-center justify-start p-6 space-y-4 text-theme-4 bg-theme-1`}
+      } flex flex-col w-full items-center justify-start p-2 space-y-4 text-theme-4 bg-theme-1 h-full`}
     >
-      <div className="flex flex-col max-w-[800px] w-full space-y-4">
+      <div className="flex flex-col max-w-[800px] w-full h-full max-h-[90%] overflow-y-scroll space-y-3">
         <div className="flex flex-row items-center space-x-4">
           <button
             type="button"
@@ -115,6 +117,31 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
           placeholder="notes"
           value={values.notes}
           onChange={(e) => updateField("notes", e.target.value)}
+        />
+        <input
+          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
+          placeholder="source title"
+          value={values.source?.title ?? ""}
+          onChange={(e) =>
+            updateField("source", { ...values.source, title: e.target.value })
+          }
+          required={values.source?.link ? true : false}
+        />
+        <input
+          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
+          placeholder="source link"
+          value={values.source?.link ?? ""}
+          onChange={(e) =>
+            updateField("source", { ...values.source, link: e.target.value })
+          }
+        />
+        <input
+          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
+          placeholder="source details"
+          value={values.source?.details ?? ""}
+          onChange={(e) =>
+            updateField("source", { ...values.source, details: e.target.value })
+          }
         />
         <button
           type="button"

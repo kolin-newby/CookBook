@@ -1,4 +1,4 @@
-import { MoveLeftIcon, X } from "lucide-react";
+import { ExternalLink, MoveLeftIcon, X } from "lucide-react";
 import PlaceHolderImage from "../place-holder-image";
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
@@ -112,12 +112,37 @@ const RecipeDetails = ({
               <TabPanel
                 id="notes-tab"
                 className={
-                  "flex flex-col items-center py-8 min-h-0 overflow-y-auto"
+                  "flex flex-col items-center py-8 min-h-0 overflow-y-auto space-y-3"
                 }
               >
-                <span className="whitespace-pre-wrap text-sm md:text-base">
-                  {recipe?.notes}
-                </span>
+                {recipe?.source && (
+                  <div className="flex flex-col space-y-2 items-center">
+                    <h2 className="text-xl">Recipe Source</h2>
+                    {recipe.source.link ? (
+                      <a
+                        href={recipe.source.link}
+                        rel="noreferrer"
+                        target="_blank"
+                        className="flex space-x-1 hover:text-theme-3 border border-theme-4 hover:border-theme-3 p-2 rounded-[50px]"
+                      >
+                        <span>{recipe.source.title}</span>
+                        <ExternalLink />
+                      </a>
+                    ) : (
+                      <span>{recipe.source.title}</span>
+                    )}
+
+                    {recipe.source.details && (
+                      <span>{recipe.source.details}</span>
+                    )}
+                  </div>
+                )}
+                <div className="flex flex-col items-center space-y-2">
+                  <h2 className="text-xl">Notes</h2>
+                  <span className="whitespace-pre-wrap text-sm md:text-base">
+                    {recipe?.notes}
+                  </span>
+                </div>
               </TabPanel>
             </TabPanels>
           </TabGroup>
