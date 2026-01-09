@@ -60,26 +60,29 @@ const DirectionTab = ({ openTab, setOpenTab, steps, setSteps }) => {
         </div>
       )}
 
-      <div className="flex flex-col rounded-[50px] bg-theme-1 max-w-[1000px] h-full inset-shadow-sm px-4 py-3 space-y-3">
+      <div className="flex flex-col rounded-[50px] bg-theme-1 max-w-[1000px] h-full inset-shadow-sm py-3 space-y-3">
         <h2 className="flex text-2xl justify-center">Add Directions</h2>
         <ol className="flex flex-col space-y-3 w-full h-[470px] min-h-12 overflow-y-auto p-1 pb-3">
           {steps.map((step, index) => (
-            <li key={`ingredient-${index}`} className="flex transition-all">
+            <li
+              key={`ingredient-${index}`}
+              className="flex transition-all pl-0.5"
+            >
               <span className="flex items-center justify-center pr-1.5">
                 {index + 1}.
               </span>
-              <div className="flex flex-col rounded-l-[50px] bg-theme-2 overflow-hidden">
+              <div className="flex flex-col min-w-9 rounded-l-[50px] bg-theme-2 overflow-hidden">
                 <button
                   type="button"
                   onClick={() => handleMove("up", index)}
-                  className="w-full h-1/2 pr-4 pl-3 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="w-full h-1/2 pr-2 pl-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
                 >
                   <ChevronsUp />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleMove("down", index)}
-                  className="w-full h-1/2 pr-2 pl-3 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="w-full h-1/2 pr-2 pl-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
                 >
                   <ChevronsDown />
                 </button>
@@ -107,7 +110,7 @@ const DirectionTab = ({ openTab, setOpenTab, steps, setSteps }) => {
         </ol>
         <button
           type="button"
-          className="flex rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
+          className="flex mx-2 rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
           onClick={() => setSteps((prev) => [...prev, ""])}
         >
           <Plus />
@@ -122,7 +125,7 @@ const DirectionTab = ({ openTab, setOpenTab, steps, setSteps }) => {
             });
             setOpenTab(null);
           }}
-          className="flex text-2xl rounded-[50px] bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
+          className="flex mx-2 text-2xl rounded-[50px] bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
         >
           <ChevronDown size={"30px"} />
           <h2>Close</h2>
