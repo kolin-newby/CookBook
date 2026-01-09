@@ -82,7 +82,7 @@ const RecipesList = ({
         {showManageView && (
           <div className="flex w-full sm:w-1/3 space-x-2 text-lg">
             <button
-              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[102%]"
+              className="flex w-full px-3 space-x-2 cursor-pointer flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center shadow transform transition-all duration-100 hover:shadow-lg hover:-translate-y-0.5"
               onClick={() => setShowModal(true)}
             >
               <Plus />
@@ -90,7 +90,7 @@ const RecipesList = ({
             </button>
             <NavLink
               to={"/recipes"}
-              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center transform transition-all duration-200 hover:shadow-lg hover:scale-[102%]"
+              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center shadow transform transition-all duration-100 hover:shadow-lg hover:-translate-y-0.5"
             >
               <X />
               <h2>Done</h2>
@@ -98,7 +98,7 @@ const RecipesList = ({
           </div>
         )}
       </div>
-      <ul className="flex flex-col space-y-4 w-full items-center p-4 text-yellow-950 overflow-y-scroll">
+      <ul className="flex flex-col space-y-4 w-full items-center text-yellow-950 overflow-y-scroll py-2">
         {loading ? (
           <Loading />
         ) : filteredRecipes.length > 0 ? (
@@ -110,7 +110,7 @@ const RecipesList = ({
                   className="flex flex-col w-full max-w-[800px]"
                 >
                   <div
-                    className="flex flex-row w-full rounded-[50px] inset-shadow-sm items-center justify-center transition-all duration-300 cursor-pointer bg-theme-4/10 hover:scale-[103%] hover:bg-transparent hover:inset-shadow-none hover:shadow"
+                    className="flex flex-row w-full rounded-[50px] shadow items-center justify-center transition-all duration-100 cursor-pointer bg-theme-4/10 hover:-translate-y-1 hover:bg-transparent hover:shadow-lg"
                     onClick={() => {
                       setDisplayRecipe(recipe);
                       setModalOpen(true);
