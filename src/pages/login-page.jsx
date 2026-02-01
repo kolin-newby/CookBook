@@ -26,11 +26,10 @@ const LoginPage = () => {
     <div className="flex flex-col w-full h-full items-center justify-center">
       <div className="flex flex-col grow px-10 py-10 max-w-[600px] items-center justify-center">
         <span className="flex text-theme-5">
-          Get in the Mother FKN Kitchen is a recipe site for our friends and
-          family, it is by invite only and is not open to the public. If you are
-          one of our friends or family members, hi! Please login below to access
-          the recipes and if you have any issues or questions reach out to Kolin
-          or Jaiden.
+          This is a recipe site for friends and family, it is by invite only and
+          is not open to the public. If you are one of our friends or family
+          members, hi! Please login below to access the recipes and if you have
+          any issues or questions reach out to Kolin or Jaiden.
         </span>
       </div>
       <form
