@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { useAuth } from "../components/auth/AuthContext";
-import RecipeModal from "../components/recipes/recipe-modal/recipe-modal";
 import { Edit, Plus } from "lucide-react";
 import { NavLink } from "react-router";
 
 const AccountPage = () => {
   const { user, signOut, isAdmin } = useAuth();
-  const [showModal, setShowModal] = useState(false);
 
   const handleSignOut = () => {
     signOut();
