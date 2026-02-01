@@ -8,6 +8,11 @@ const BLANK_RECIPE = {
   ingredients: [{ name: "", qty: "" }],
   steps: [""],
   prepTimeMins: 0,
+  source: {
+    title: "",
+    link: "",
+    details: "",
+  },
 };
 
 function safeJsonParse(raw, fallback) {
@@ -40,7 +45,7 @@ export function useRecipe(editingRecipe, show) {
     const key = editingRecipe.id;
     if (!key) {
       throw new Error(
-        "useRecipe(editingRecipe): editingRecipe must include a stable id."
+        "useRecipe(editingRecipe): editingRecipe must include a stable id.",
       );
     }
 
