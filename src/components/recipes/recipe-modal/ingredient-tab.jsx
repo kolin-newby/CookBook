@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ChevronsUp,
   ChevronsDown,
-  PlusCircle,
 } from "lucide-react";
 
 const IngredientTab = ({
@@ -18,8 +17,8 @@ const IngredientTab = ({
   const updateValues = (newValue, index) => {
     setIngredients((prev) =>
       prev.map((oldValue, i) =>
-        i === index ? { ...oldValue, ...newValue } : oldValue
-      )
+        i === index ? { ...oldValue, ...newValue } : oldValue,
+      ),
     );
   };
 
@@ -58,7 +57,7 @@ const IngredientTab = ({
             if (openTab !== "ingredients") setOpenTab("ingredients");
             else setOpenTab(null);
           }}
-          className="absolute bottom-full items-centerx space-x-2 cursor-pointer text-xl text-theme-1 left-0 shadow-lg flex py-4 w-1/2 bg-theme-3 rounded-t-xl justify-center"
+          className="absolute bottom-full items-center space-x-2 cursor-pointer text-xl text-theme-1 left-0 shadow-lg flex py-4 w-1/2 bg-theme-3 rounded-t-xl justify-center"
         >
           <h2 className="flex">Ingredients</h2>
           {(ingredients.length > 1 ||
@@ -76,22 +75,19 @@ const IngredientTab = ({
         <h2 className="flex text-2xl justify-center py-3">Add Ingredients</h2>
         <div className="flex flex-col space-y-3 w-full h-[470px] min-h-12 overflow-y-auto px-1 pb-3">
           {ingredients.map((ingredient, index) => (
-            <div
-              key={`ingredient-${index}-${ingredient.name}`}
-              className="flex transition-all"
-            >
+            <div key={`ingredient-${index}`} className="flex transition-all">
               <div className="flex flex-col min-w-9 rounded-l-[50px] bg-theme-2 overflow-hidden">
                 <button
                   type="button"
                   onClick={() => handleMove("up", index)}
-                  className="w-full h-1/2 pr-2 pl-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="flex w-full h-1/2 px-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
                 >
                   <ChevronsUp />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleMove("down", index)}
-                  className="w-full h-1/2 pr-2 pl-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="flex w-full h-1/2 px-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
                 >
                   <ChevronsDown />
                 </button>
@@ -99,7 +95,7 @@ const IngredientTab = ({
               <div className="flex flex-col space-x-4">
                 <input
                   className="flex w-full transition-colors bg-theme-2 px-8 py-3"
-                  placeholder="ingedient"
+                  placeholder="ingredient"
                   value={ingredient.name}
                   onChange={(e) =>
                     updateValues({ name: e.target.value }, index)
@@ -146,7 +142,7 @@ const IngredientTab = ({
           onClick={() => {
             setIngredients((prev) => {
               const validIngredients = prev.filter(
-                (ingredient) => ingredient?.name?.trim().length > 0
+                (ingredient) => ingredient?.name?.trim().length > 0,
               );
               return validIngredients.length > 0
                 ? validIngredients
