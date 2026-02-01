@@ -30,13 +30,6 @@ const AccountPage = () => {
       {isAdmin && (
         <div className="flex flex-col w-full bg-theme-4/10 inset-shadow-sm rounded-[50px] p-10 space-y-4 items-center justify-center">
           <h2 className="flex text-xl md:text-2xl">Content Management</h2>
-          <button
-            onClick={() => setShowModal(!showModal)}
-            className="text-xl md:text-2xl flex items-center justify-center space-x-2 bg-theme-3 text-theme-1 rounded-[50px] py-2 px-10 shadow transform transition-all duration-300 hover:shadow-xl hover:scale-[103%] cursor-pointer"
-          >
-            <Plus size={"30px"} />
-            <h2>Add Recipe</h2>
-          </button>
           <NavLink
             to={"/recipes/edit"}
             className="text-xl md:text-2xl flex items-center justify-center space-x-2 bg-theme-3 text-theme-1 rounded-[50px] py-2 px-10 shadow transform transition-all duration-300 hover:shadow-xl hover:scale-[103%] cursor-pointer"
@@ -44,7 +37,6 @@ const AccountPage = () => {
             <Edit size={"30px"} />
             <h2>Manage Recipes</h2>
           </NavLink>
-          <RecipeModal show={showModal} setShow={setShowModal} />
         </div>
       )}
     </div>

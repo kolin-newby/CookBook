@@ -32,7 +32,7 @@ const RecipesList = ({
         .filter(
           (recipe) =>
             recipe?.title?.toLowerCase().includes(search) ||
-            search.includes(recipe?.title?.toLowerCase())
+            search.includes(recipe?.title?.toLowerCase()),
         );
       if (inactiveRecipes !== null && showManageView) {
         inactive = inactiveRecipes
@@ -40,7 +40,7 @@ const RecipesList = ({
           .filter(
             (recipe) =>
               recipe?.title?.toLowerCase().includes(search) ||
-              search.includes(recipe?.title?.toLowerCase())
+              search.includes(recipe?.title?.toLowerCase()),
           );
       }
     }
@@ -83,7 +83,10 @@ const RecipesList = ({
           <div className="flex w-full sm:w-1/3 space-x-2 text-lg">
             <button
               className="flex w-full px-3 space-x-2 cursor-pointer flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center shadow transform transition-all duration-100 hover:shadow-lg hover:-translate-y-0.5"
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setEditRecipe(null);
+                setShowModal(true);
+              }}
             >
               <Plus />
               <h2>Add</h2>
@@ -139,7 +142,7 @@ const RecipesList = ({
                     />
                   )}
                 </li>
-              )
+              ),
           )
         ) : (
           <li
