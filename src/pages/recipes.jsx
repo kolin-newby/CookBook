@@ -20,13 +20,13 @@ const Recipes = () => {
 
   const activeRecipes = useMemo(
     () => activeQuery.data ?? [],
-    [activeQuery.data]
+    [activeQuery.data],
   );
-  const inactiveRecipes = showManageView ? inactiveQuery.data ?? [] : null;
+  const inactiveRecipes = showManageView ? (inactiveQuery.data ?? []) : null;
 
   const updateDisplayRecipe = useCallback(() => {
     const match = activeRecipes.find(
-      (recipe) => `#${recipe?.id}` === window.location.hash
+      (recipe) => `#${recipe?.id}` === window.location.hash,
     );
     setDisplayRecipe(match ?? null);
   }, [activeRecipes]);
@@ -44,7 +44,7 @@ const Recipes = () => {
   return (
     <div
       id="details"
-      className={`flex flex-col h-full w-full relative transform transition-transform duration-700 ${
+      className={`flex flex-col h-full w-full relative transform transition-transform duration-500 ${
         !modalOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

@@ -35,7 +35,7 @@ const DirectionTab = ({ steps, setSteps }) => {
       <div className="flex flex-col max-w-[1000px] h-full py-1.5 space-y-1.5">
         <ol className="flex flex-col space-y-1.5 w-full h-[470px] min-h-10 overflow-y-auto p-1 pb-1.5">
           {steps.map((step, index) => (
-            <li key={`ingredient-${index}`} className="flex h-full pl-0.5">
+            <li key={`ingredient-${index}`} className="flex pl-0.5">
               <span className="flex items-center justify-center pr-1.5">
                 {index + 1}.
               </span>

@@ -8,7 +8,12 @@ import UseNotify from "../../notifications/UseNotify";
 import ActivityTag from "../../activity-tag";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 
-const RecipeModal = ({ show, setShow, editRecipe = null }) => {
+const RecipeModal = ({
+  show,
+  setShow,
+  editRecipe = null,
+  onClose = () => null,
+}) => {
   const { values, updateField, clearDraft } = useRecipe(editRecipe, show);
 
   const createRecipe = UseCreateRecipeMutation();
@@ -58,6 +63,7 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
 
   const handleClose = () => {
     clearDraft();
+    onClose();
     setShow(false);
   };
 
@@ -66,14 +72,14 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
       onSubmit={handleSubmit}
       className={`absolute inset-0 z-10 transition-transform transform duration-300 overflow-hidden ${
         show ? "translate-x-0" : "translate-x-full"
-      } flex flex-col w-full items-center justify-start p-2 space-y-4 text-theme-4 bg-theme-1 h-full`}
+      } flex flex-col w-full items-center justify-start p-2 space-y-4 text-theme-4 bg-theme-2 h-full`}
     >
       <div className="flex flex-col max-w-[800px] w-full h-full overflow-y-scroll space-y-2">
         <div className="flex flex-row items-center space-x-4">
           <button
             type="button"
             onClick={handleClose}
-            className="flex items-center justify-center rounded-[50px] transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer space-x-1"
+            className="flex items-center justify-center rounded-[50px] transition-colors bg-theme-4 hover:bg-theme-3 text-theme-1 py-3 px-6 cursor-pointer space-x-1"
           >
             <X />
             <h2 className="text-xl">Cancel</h2>
@@ -238,85 +244,17 @@ const RecipeModal = ({ show, setShow, editRecipe = null }) => {
             </TabPanel>
           </TabPanels>
         </TabGroup>
-
-        {/* <div className="flex">
-          <input
-            className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
-            placeholder="title"
-            value={values.title}
-            onChange={(e) => updateField("title", e.target.value)}
-            required
-          />
-        </div>
-        <div className="flex w-full items-center justify-center space-x-1">
-          <input
-            className="w-full rounded-[50px] transition-colors bg-theme-2 px-8 py-3"
-            type="number"
-            min={0}
-            placeholder="0"
-            value={values.prepTimeMins}
-            onChange={(e) => updateField("prepTimeMins", e.target.value)}
-            id="prepTimeMins"
-            required
-          />
-          <span className="flex text-xl">min(s)</span>
-        </div>
-        <textarea
-          className="flex rounded-[50px] transition-colors bg-theme-2 px-8 py-3"
-          placeholder="description"
-          value={values.description}
-          onChange={(e) => updateField("description", e.target.value)}
-          required
-        />
-        <textarea
-          className="flex flex-col rounded-[48px] max-h-36 h-fit grow transition-colors bg-theme-2 px-8 py-3"
-          placeholder="notes"
-          value={values.notes}
-          onChange={(e) => updateField("notes", e.target.value)}
-        />
-        <input
-          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
-          placeholder="source title"
-          value={values.source?.title ?? ""}
-          onChange={(e) =>
-            updateField("source", { ...values.source, title: e.target.value })
-          }
-          required={values.source?.link ? true : false}
-        />
-        <input
-          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
-          placeholder="source link"
-          value={values.source?.link ?? ""}
-          onChange={(e) =>
-            updateField("source", { ...values.source, link: e.target.value })
-          }
-        />
-        <input
-          className="flex rounded-[50px] w-full transition-colors bg-theme-2 px-8 py-3"
-          placeholder="source details"
-          value={values.source?.details ?? ""}
-          onChange={(e) =>
-            updateField("source", { ...values.source, details: e.target.value })
-          }
-        />
-        <button
-          type="button"
-          className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
-          onClick={() => updateField("active", !values.active)}
-        >
-          {values.active ? "ACTIVE" : "INACTIVE"}
-        </button> */}
         <button
           type="submit"
           disabled={createRecipe.isPending || updateRecipe.isPending}
-          className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1 py-3 px-6 cursor-pointer"
+          className="flex items-center justify-center rounded-[50px] w-full space-x-1 text-xl transition-colors bg-theme-4 hover:bg-theme-3 text-theme-1 py-3 px-6 cursor-pointer"
         >
           {createRecipe.isPending || updateRecipe.isPending ? (
             <LoaderCircle className="animate-spin" />
           ) : (
             <Check />
           )}
-          <h2>Submit</h2>
+          <h2>Save</h2>
         </button>
       </div>
     </form>

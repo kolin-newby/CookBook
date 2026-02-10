@@ -67,22 +67,24 @@ const RecipesList = ({
         }`}
       >
         <div
-          className={`flex bg-theme-3 rounded-[50px] p-2 w-full ${
+          className={`flex bg-theme-4 rounded-[50px] p-2 w-full ${
             showManageView ? "sm:w-2/3" : ""
           }`}
         >
-          <input
-            className="flex rounded-[50px] text-lg py-2 px-6 w-full bg-theme-2"
-            type="text"
-            placeholder="search recipes..."
-            value={search}
-            onChange={(e) => setSearch(e?.target?.value.toLowerCase())}
-          />
+          <div className="flex w-full rounded-[50px] bg-theme-1">
+            <input
+              className="flex rounded-[50px] text-lg w-full py-2 px-6 bg-black/10 outline-none focus:bg-black/20"
+              type="text"
+              placeholder="search recipes..."
+              value={search}
+              onChange={(e) => setSearch(e?.target?.value.toLowerCase())}
+            />
+          </div>
         </div>
         {showManageView && (
-          <div className="flex w-full sm:w-1/3 space-x-2 text-lg">
+          <div className="flex w-full sm:w-1/3 space-x-2 text-lg bg-theme-4 rounded-[50px] p-1 items-center">
             <button
-              className="flex w-full px-3 space-x-2 cursor-pointer flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center shadow transform transition-all duration-100 hover:shadow-lg hover:-translate-y-0.5"
+              className="flex flex-row w-full items-center justify-center space-x-1 text-lg bg-theme-2 rounded-[50px] p-2 text-theme-5 cursor-pointer transform transition-all duration-200 hover:bg-black/20 hover:text-theme-2 hover:inset-shadow-sm"
               onClick={() => {
                 setEditRecipe(null);
                 setShowModal(true);
@@ -93,7 +95,7 @@ const RecipesList = ({
             </button>
             <NavLink
               to={"/recipes"}
-              className="flex w-full px-3 space-x-2 flex-nowrap text-nowrap text-theme-1 rounded-[50px] bg-theme-3 py-3 items-center justify-center shadow transform transition-all duration-100 hover:shadow-lg hover:-translate-y-0.5"
+              className="flex flex-row w-full items-center justify-center space-x-1 text-lg bg-theme-2 rounded-[50px] p-2 text-theme-5 cursor-pointer transform transition-all duration-200 hover:bg-black/20 hover:text-theme-2 hover:inset-shadow-sm"
             >
               <X />
               <h2>Done</h2>
@@ -124,9 +126,6 @@ const RecipesList = ({
                         <PlaceHolderImage className="-z-10" />
                         <span className="flex text-theme-1 items-center justify-center text-2xl md:text-3xl space-x-2">
                           <h2 className="">{recipe?.title}</h2>
-                          {showManageView ? (
-                            <InactiveTag active={recipe?.active} />
-                          ) : null}
                         </span>
                       </div>
                       <h3 className="flex text-xs md:text-base pb-6 pt-2 px-4">
@@ -136,6 +135,7 @@ const RecipesList = ({
                   </div>
                   {showManageView && (
                     <MutationBar
+                      className="mt-2"
                       recipe={recipe}
                       setRecipe={setEditRecipe}
                       setShowModal={setShowModal}
