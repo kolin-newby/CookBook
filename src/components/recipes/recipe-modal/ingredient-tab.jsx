@@ -1,19 +1,8 @@
 import React from "react";
 
-import {
-  Trash,
-  Plus,
-  ChevronDown,
-  ChevronsUp,
-  ChevronsDown,
-} from "lucide-react";
+import { Trash, Plus, ChevronsUp, ChevronsDown } from "lucide-react";
 
-const IngredientTab = ({
-  ingredients,
-  setIngredients,
-  openTab,
-  setOpenTab,
-}) => {
+const IngredientTab = ({ ingredients, setIngredients }) => {
   const updateValues = (newValue, index) => {
     setIngredients((prev) =>
       prev.map((oldValue, i) =>
@@ -47,70 +36,46 @@ const IngredientTab = ({
 
   return (
     <div
-      className={`absolute inset-x-0 top-full flex flex-col w-full h-full items-center justify-start bg-theme-3 p-6 transform transition-transform duration-300 ${
-        openTab === "ingredients" ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`flex text-sm top-full flex-col w-full h-full items-center justify-start`}
     >
-      {openTab === null && (
-        <div
-          onClick={() => {
-            if (openTab !== "ingredients") setOpenTab("ingredients");
-            else setOpenTab(null);
-          }}
-          className="absolute bottom-full items-center space-x-2 cursor-pointer text-xl text-theme-1 left-0 shadow-lg flex py-4 w-1/2 bg-theme-3 rounded-t-xl justify-center"
-        >
-          <h2 className="flex">Ingredients</h2>
-          {(ingredients.length > 1 ||
-            (ingredients[0] && ingredients[0].name.length > 0)) && (
-            <div className="flex items-center justify-center">
-              <h2 className="flex relative size-10 z-10 items-center justify-center text-theme-3">
-                <div className="absolute inset-0 w-full -z-10 h-full animate-spin-slow bg-theme-1 size-10 rounded-[15px] items-center justify-center" />
-                {ingredients.length}
-              </h2>
-            </div>
-          )}
-        </div>
-      )}
-      <div className="flex flex-col max-w-[1000px] h-full rounded-[50px] bg-theme-1 inset-shadow-sm py-3 space-y-3">
-        <h2 className="flex text-2xl justify-center py-3">Add Ingredients</h2>
+      <div className="flex flex-col max-w-[1000px] h-full py-3 space-y-2">
         <div className="flex flex-col space-y-3 w-full h-[470px] min-h-12 overflow-y-auto px-1 pb-3">
           {ingredients.map((ingredient, index) => (
-            <div key={`ingredient-${index}`} className="flex transition-all">
-              <div className="flex flex-col min-w-9 rounded-l-[50px] bg-theme-2 overflow-hidden">
+            <div
+              key={`ingredient-${index}`}
+              className="flex transition-all shadow rounded-lg"
+            >
+              <div className="flex min-w-12 rounded-l-lg overflow-hidden">
                 <button
                   type="button"
                   onClick={() => handleMove("up", index)}
-                  className="flex w-full h-1/2 px-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="flex w-1/2 h-full px-0.5 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer rounded-l-lg bg-black/10 outline-none"
                 >
                   <ChevronsUp />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleMove("down", index)}
-                  className="flex w-full h-1/2 px-2 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer"
+                  className="flex h-full w-1/2 px-0.5 items-center justify-center hover:bg-theme-3 hover:text-theme-1 transition-colors cursor-pointer bg-black/10 outline-none"
                 >
                   <ChevronsDown />
                 </button>
               </div>
-              <div className="flex flex-col space-x-4">
+              <div className="flex">
                 <input
-                  className="flex w-full transition-colors bg-theme-2 px-8 py-3"
+                  className="flex w-full max-w-[100px] transition-colors py-1 px-2 bg-black/10 focus:bg-black/20 outline-none"
+                  placeholder="qty"
+                  value={ingredient.qty}
+                  onChange={(e) => updateValues({ qty: e.target.value }, index)}
+                />
+                <input
+                  className="flex w-full transition-colors px-2 py-1.5 outline-none bg-black/10 focus:bg-black/20"
                   placeholder="ingredient"
                   value={ingredient.name}
                   onChange={(e) =>
                     updateValues({ name: e.target.value }, index)
                   }
                 />
-                <div className="flex w-full">
-                  <input
-                    className="flex w-full transition-colors bg-theme-2 px-8 py-3"
-                    placeholder="qty"
-                    value={ingredient.qty}
-                    onChange={(e) =>
-                      updateValues({ qty: e.target.value }, index)
-                    }
-                  />
-                </div>
               </div>
               <button
                 type="button"
@@ -120,7 +85,7 @@ const IngredientTab = ({
                     return prev.filter((_, i) => i !== index);
                   });
                 }}
-                className="flex items-center justify-center rounded-r-[50px] px-3 cursor-pointer transition-colors bg-theme-2 hover:bg-theme-3 hover:text-theme-1"
+                className="flex items-center justify-center rounded-r-lg px-1 cursor-pointer transition-colors bg-black/10 hover:bg-theme-3 hover:text-theme-1"
               >
                 <Trash />
               </button>
@@ -129,32 +94,13 @@ const IngredientTab = ({
         </div>
         <button
           type="button"
-          className="flex mx-2 rounded-[50px] bg-theme-2 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-3"
+          className="flex mx-2 rounded-lg bg-black/10 hover:bg-theme-3 hover:text-theme-1 cursor-pointer items-center justify-center py-1.5"
           onClick={() =>
             setIngredients((prev) => [...prev, { name: "", qty: "" }])
           }
         >
           <Plus />
           <span>Add</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setIngredients((prev) => {
-              const validIngredients = prev.filter(
-                (ingredient) => ingredient?.name?.trim().length > 0,
-              );
-              return validIngredients.length > 0
-                ? validIngredients
-                : [{ name: "", qty: "" }];
-            });
-            setOpenTab(null);
-          }}
-          className="flex mx-2 text-2xl rounded-[50px] bg-theme-3 py-3 px-4 items-center justify-center space-x-2"
-        >
-          <ChevronDown size={"30px"} />
-          <h2>Close</h2>
-          <ChevronDown size={"30px"} />
         </button>
       </div>
     </div>

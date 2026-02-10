@@ -35,11 +35,16 @@ const RecipeDetails = ({
                 <MoveLeftIcon className="text-theme-2" size={"35"} />
               </div>
             </div>
-            <div className="flex flex-col space-y-2">
-              <span className="flex flex-row items-center">
-                <h2 className="flex text-2xl md:text-4xl">{recipe?.title}</h2>
+            <div className="flex flex-col space-y-2 justify-center">
+              <span className="flex flex-row">
+                <h2 className="flex h-full text-2xl md:text-4xl items-center">
+                  {recipe?.title}
+                </h2>
                 {showManageView && (
-                  <ActivityTag active={recipe?.active} className="mx-2" />
+                  <ActivityTag
+                    active={recipe?.active}
+                    className="mx-2 items-center"
+                  />
                 )}
               </span>
               <h3 className="text-sm md:text-base">{recipe?.description}</h3>
