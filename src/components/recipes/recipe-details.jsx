@@ -4,7 +4,6 @@ import PlaceHolderImage from "../place-holder-image";
 import { useState } from "react";
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import ActivityTag from "../activity-tag";
 import MutationBar from "./mutation-bar";
 import RecipeModal from "./recipe-modal/recipe-modal";
 

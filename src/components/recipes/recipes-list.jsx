@@ -5,7 +5,6 @@ import RecipeModal from "../recipes/recipe-modal/recipe-modal";
 import Loading from "../Loading";
 import { NavLink } from "react-router";
 import { Plus, X } from "lucide-react";
-import InactiveTag from "../activity-tag";
 
 const RecipesList = ({
   setModalOpen,
